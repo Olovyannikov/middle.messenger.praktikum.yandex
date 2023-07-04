@@ -1,12 +1,11 @@
 {
   "compilerOptions": {
     "jsx": "react",
-    "jsxFactory": "jsx",
-    "jsxFragmentFactory": "jsx.Fragment",
-    "target": "ES2020",
+    "jsxFactory": "VDom.createElement",
+    "target": "esnext",
     "useDefineForClassFields": true,
     "module": "ESNext",
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": ["esnext", "dom", "dom.iterable"],
     "skipLibCheck": true,
 
     /* Bundler mode */
@@ -20,7 +19,11 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@/jsx": ["./src/jsx/pragma.ts"],
+      "@/*": ["./src/*"]
+    }
   },
   "include": ["src"]
 }

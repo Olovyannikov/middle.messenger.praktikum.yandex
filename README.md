@@ -4,7 +4,12 @@
 - Используется своя реализация JSX в качестве шаблонизатора;
 - В качестве фреймворка будет реализован компонентый virtual dom подход по аналогии с react; 
 
+### jsx inpired by
+- [texsaur](https://github.com/ConnorJamesLow/texsaur/tree/main)
+- [vanilla-jsx](https://medium.com/front-end-weekly/vanilla-jsx-28ff15e82de8)
+
 ### vdom inspired by:
-- [react]()
-- [preact]()
-- [teact]()
+- [react](https://github.com/reactjs/react.dev)
+- [preact](https://github.com/preactjs/preact)
+- [teact](https://github.com/Ajaxy/teact)
+- [didact](https://github.com/pomber/didact)
