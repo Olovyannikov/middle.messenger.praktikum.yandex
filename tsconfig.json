@@ -21,7 +21,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@/jsx": ["./src/jsx/pragma.ts"],
+      "@/jsx": ["./src/jsx-runtime/index.ts"],
       "@/*": ["./src/*"]
     }
   },

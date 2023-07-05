@@ -1,7 +1,7 @@
 declare namespace JSX {
-    type Element = HTMLElement | string;
-    type FC<P extends {}, T = JSX.Element> = (classList?: App.ClassInject | string[] | null, props?: P) => T;
-    type Attributes = Pick<JSX.Element, 'id' | 'onclick' | 'className'>;
+    type Element = HTMLElement | string | HTMLAnchorElement;
+    type FC<P extends {}, T = JSX.Element> = (classList?: string[] | null, props?: P) => T;
+    type Attributes = Pick<JSX.Element, 'id' | 'onclick' | 'className' | 'href' | 'type'>;
 
     interface IntrinsicElements extends IntrinsicElementMap {}
     type IntrinsicElementMap = {

@@ -18,7 +18,7 @@ export default defineConfig({
     resolve: {
         alias: [
             {
-                find: "@/jsx", replacement: resolve(__dirname, "./src/jsx/h.ts"),
+                find: "@/jsx", replacement: resolve(__dirname, "./src/jsx-runtime/index.ts"),
             },
             {
                 find: "@", replacement: resolve(__dirname, "./src"),

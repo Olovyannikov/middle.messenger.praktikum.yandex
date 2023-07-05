@@ -23,7 +23,7 @@ export const VDom = {
     }
 }
 
-export function render(virtualDom: VNode, realDomRoot: HTMLElement) {
+export function render(virtualDom: HTMLElement | string, realDomRoot: HTMLElement) {
     const evaluatedVirtualDom = evaluate(virtualDom)
 
     const virtualDomRoot: VNode = {
@@ -95,7 +95,7 @@ function sync(virtualNode: VNode, realNode: HTMLElement | Text): void {
 
         // Remove
         if (virtual === undefined && real !== undefined) {
-            realNode.removeChild(real)
+            realNode.remove()
         }
 
         // Update
