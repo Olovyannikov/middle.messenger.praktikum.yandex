@@ -1,5 +1,5 @@
-import {VDom} from "@/jsx";
-import {classNames} from "@/shared/lib/clsx.ts";
+import { VDom } from '@/jsx';
+import { classNames } from '@/shared/lib/clsx.ts';
 import s from './styles.module.scss';
 
 interface LinkProps {
@@ -9,9 +9,20 @@ interface LinkProps {
     disabled?: boolean;
 }
 
-export const Link = ({href, className = '', disabled = false, children}: LinkProps) => {
-
+export const Link = ({
+    href,
+    className = '',
+    disabled = false,
+    children,
+}: LinkProps) => {
     return (
-        <a aria-disabled={disabled} href={href} data-link={true} className={classNames(s.link, {}, [className])}>{children}</a>
-    )
-}
+        <a
+            aria-disabled={disabled}
+            href={href}
+            data-link={true}
+            className={classNames(s.link, {}, [className])}
+        >
+            {children}
+        </a>
+    );
+};

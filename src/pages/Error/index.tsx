@@ -2,11 +2,16 @@ import {VDom} from "@/jsx";
 import s from './styles.module.scss';
 import {Button} from "@/shared/ui/Button";
 
-export default function Error404Page() {
+interface ErrorPageProps {
+    status: number | string;
+    message?: string;
+}
+
+export default function ErrorPage({status, message}: ErrorPageProps) {
     return (
         <div className={s.error}>
-            <h1>404</h1>
-            <p>Кажется, что-то пошло не так, страница недоступна</p>
+            <h1>{status}</h1>
+            <p>{message}</p>
             <Button href='/' size='small'>Вернуться назад</Button>
         </div>
     )

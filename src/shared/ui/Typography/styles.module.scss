@@ -1,0 +1,79 @@
+.text {
+  margin: 0;
+  line-height: 1.15;
+  color: var(--monochrome-ash);
+  font-family: var(--font-family);
+}
+
+.text.h1 {
+  font-weight: 300;
+  font-size: 96px;
+  letter-spacing: -1.5px;
+}
+
+.text.h2 {
+  font-weight: 300;
+  font-size: 60px;
+  letter-spacing: -0.5px;
+}
+
+.text.h3 {
+  font-weight: 400;
+  font-size: 48px;
+  letter-spacing: 0;
+}
+
+.text.h4 {
+  font-weight: 400;
+  font-size: 34px;
+  letter-spacing: 0.25px;
+}
+
+.text.h5 {
+  font-weight: 400;
+  font-size: 24px;
+  letter-spacing: 0;
+}
+
+.text.h6 {
+  font-weight: 500;
+  font-size: 20px;
+  letter-spacing: 0.15px;
+}
+
+.text.body1 {
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+}
+
+.text.body2 {
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: 0.26px;
+}
+
+.text.subtitle1 {
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: 0.15px;
+}
+
+.text.subtitle2 {
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.1px;
+}
+
+.text.caption {
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 0.4px;
+}
+
+.text.overline {
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}

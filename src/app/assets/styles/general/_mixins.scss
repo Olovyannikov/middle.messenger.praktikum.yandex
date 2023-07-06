@@ -7,3 +7,23 @@
     font-display: swap;
   }
 }
+
+@mixin list-reset {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@mixin btn-reset {
+  margin: 0;
+  outline: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  background: none;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+}

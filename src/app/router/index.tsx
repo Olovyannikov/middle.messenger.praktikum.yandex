@@ -5,7 +5,7 @@ export const Router = () => {
     const {pathname} = useRouter();
 
     if(!routerConfig[pathname]) {
-        return routerConfig['/error-404']
+        return routerConfig['/not-found']
     }
 
     return (

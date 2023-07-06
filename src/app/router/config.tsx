@@ -1,10 +1,11 @@
 import {VDom} from "@/jsx";
 import IndexPage from "@/pages";
 import {RootLayout} from "@/layouts";
-import Error404Page from "@/pages/Error404";
+import ErrorPage from "../../pages/Error";
 
 export const routerConfig: Record<string, JSX.Element> = {
     '/': <IndexPage/>,
     '/asd': <RootLayout>sdsad</RootLayout>,
-    '/error-404': <Error404Page/>
+    '/not-found': <ErrorPage status={404} message='Кажется, что-то пошло не так, страница недоступна'/>,
+    '/server-error': <ErrorPage status={500} message='Кажется, что-то пошло не так, страница недоступна'/>
 }
