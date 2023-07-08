@@ -1,24 +1,76 @@
 declare namespace JSX {
-    type Element = HTMLElement | string | HTMLAnchorElement;
-    type FC<P extends {}, T = JSX.Element> = (classList?: string[] | null, props?: P) => T;
-    type Attributes = Pick<JSX.Element, 'id' | 'onclick' | 'className' | 'href' | 'type' | 'key'>;
+    type Children = Element | Element[] | string;
+    type Element = globalThis.Element;
+    type Fragment = Node[];
 
     interface IntrinsicElements extends IntrinsicElementMap {}
-    type IntrinsicElementMap = {
-        [K in keyof HTMLElementTagNameMap]: Partial<Attributes>;
+
+    type HTMLElementCommonAttributes = Partial<{
+        style: Partial<CSSStyleDeclaration> | string;
+    }>;
+
+    type CommonEvents = {
+        [E in keyof GlobalEventHandlers]?: GlobalEventHandlers[E];
     };
 
-    type Props = Partial<{
-        [Property in keyof Attributes]: Attributes[Property];
-    }> | null;
+    type GlobalAttributes = CommonEvents &
+        Partial<{
+            onClick: () => void;
+            accesskey: string;
+            autocaptialize:
+                | 'off'
+                | 'none'
+                | 'on'
+                | 'sentences'
+                | 'words'
+                | 'characters';
+            autofocus: boolean;
+            className: string;
+            contenteditable: boolean | 'false';
+            contextmenu: string;
+            dir: 'ltr' | 'rtl' | 'auto';
+            draggable: 'true' | 'false';
+            enterkeyhint: string;
+            hidden: boolean;
+            id: string;
+            inputmode: string;
+            is: string;
+            itemid: string;
+            itemprop: string;
+            itemref: string;
+            itemscope: string;
+            itemtype: string;
+            lang: string;
+            nonce: string;
+            part: string;
+            role: string;
+            slot: string;
+            spellcheck: boolean | 'false';
+            tabindex: string | number;
+            title: string;
+            translate: true | 'yes' | 'no';
+        }>;
 
-    interface ComponentConstructor {
-        (props?: JSX.Props, children?: Node[]): Node;
+    type IntrinsicElementMap = {
+        [K in keyof HTMLElementTagNameMap]: HTMLElementCommonAttributes &
+            GlobalAttributes &
+            Record<string, any>;
+    } & {
+        [K in keyof SVGElementTagNameMap]: GlobalAttributes &
+            Record<string, any>;
+    };
+
+    type Tag = keyof JSX.IntrinsicElements;
+    type HTMLTag = keyof HTMLElementTagNameMap;
+    type SVGTag = keyof SVGElementTagNameMap;
+
+    interface Component<T = undefined | {}> {
+        (properties: T, children?: Node[]): Element;
     }
 }
 
-declare namespace App {
-    type Children = (string | Node | null | undefined | number)[];
-}
+type AllElementTagNameMap = HTMLElementTagNameMap & SVGElementTagNameMap;
 
-type ElementType = keyof JSX.IntrinsicElements;
+type RecursivePartial<T> = {
+    [P in keyof T]?: RecursivePartial<T[P]>;
+};

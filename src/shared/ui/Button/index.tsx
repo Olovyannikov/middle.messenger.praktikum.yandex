@@ -1,6 +1,6 @@
-import {VDom} from "@/jsx";
-import {classNames as clsx} from "@/shared/lib/clsx.ts";
-import {Link} from "@/shared/ui/Link";
+import { VDom } from '@/jsx';
+import { Link } from '@/shared/ui/Link';
+import { classNames as clsx } from '@/shared/lib/clsx.ts';
 import s from './styles.module.scss';
 
 type ButtonSize = 'small' | 'medium' | 'large';
@@ -16,36 +16,49 @@ interface ButtonProps {
     variant?: ButtonVariant;
     disabled?: boolean;
     className?: string;
+    hash?: boolean;
 }
 
 export const Button = ({
-                           children,
-                           disabled,
-                           onClick,
-                           className = '',
-                           href,
-                           size = 'medium',
-                           type = 'button',
-                           variant = 'primary'
-                       }: ButtonProps) => {
-    const classNames = clsx(s.btn, {
-        [s[size]]: size,
-        [s[variant]]: variant,
-    }, [className])
+    children,
+    disabled,
+    onClick,
+    className = '',
+    href,
+    hash,
+    size = 'medium',
+    type = 'button',
+    variant = 'primary',
+}: ButtonProps) => {
+    const classNames = clsx(
+        s.btn,
+        {
+            [s[size]]: size,
+            [s[variant]]: variant,
+        },
+        [className],
+    );
 
-    if ((href && !!href.length)) {
+    if (href && !!href.length) {
         return (
             <Link
+                asRoute={hash}
                 className={classNames}
                 disabled={disabled}
                 href={href}
             >
                 {children}
             </Link>
-        )
+        );
     }
 
     return (
-        <button type={type} onclick={onClick}>{children}</button>
-    )
-}
+        <button
+            type={type}
+            className={classNames}
+            {...(onClick && { onClick })}
+        >
+            {children}
+        </button>
+    );
+};

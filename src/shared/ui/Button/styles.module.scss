@@ -1,15 +1,19 @@
 .btn {
-  padding: var(--size-md) var(--size-xl);
   display: inline-flex;
-  justify-content: center;
   align-items: center;
-  text-decoration: none;
+  justify-content: center;
   border-radius: var(--size-md);
+  padding: var(--size-md) var(--size-xl);
   font: var(--body-medium-l);
+  text-decoration: none;
   color: var(--monochrome-ash, #262626);
-  background: var(--main-green-300, #B9F348);
+  background: var(--main-green-300, #b9f348);
 }
 
 .small {
   padding: var(--size-sm) var(--size-xl);
+}
+
+.text {
+  background-color: transparent;
 }

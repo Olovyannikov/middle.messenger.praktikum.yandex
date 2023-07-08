@@ -1,12 +1,12 @@
 export interface VNode {
-    type: string | Function;
+    type: string | (() => void);
     key: string | null;
     props: any;
 }
 
 export const VDom = {
     createElement: (
-        type: string | Function,
+        type: string | (() => void),
         config: any,
         ...children: any[]
     ) => {
@@ -27,25 +27,13 @@ export const VDom = {
     },
 };
 
-export function render(
-    virtualDom: HTMLElement | string,
-    realDomRoot: HTMLElement,
-) {
-    const evaluatedVirtualDom = evaluate(virtualDom);
-
-    const virtualDomRoot: VNode = {
-        type: realDomRoot.tagName.toLowerCase(),
-        key: null,
-        props: {
-            id: realDomRoot.id,
-            children: [evaluatedVirtualDom],
-        },
-    };
-
-    sync(virtualDomRoot, realDomRoot);
+function createRealNodeByVirtual(virtual: VNode | string): HTMLElement | Text {
+    if (typeof virtual !== 'object') {
+        return document.createTextNode('');
+    }
+    return document.createElement(virtual.type as string) as HTMLElement;
 }
 
-// Any - Так как передать можно по факту любой элемент
 function evaluate(virtualNode: any): any {
     if (typeof virtualNode !== 'object') {
         return virtualNode;
@@ -78,6 +66,10 @@ function sync(virtualNode: VNode, realNode: HTMLElement | Text): void {
 
             if (name === 'className') {
                 name = 'class';
+            }
+
+            if (name === 'onClick') {
+                name = 'onclick';
             }
 
             if ((realNode as HTMLElement).getAttribute(name) !== value) {
@@ -140,9 +132,20 @@ function sync(virtualNode: VNode, realNode: HTMLElement | Text): void {
     }
 }
 
-function createRealNodeByVirtual(virtual: VNode | string): HTMLElement | Text {
-    if (typeof virtual !== 'object') {
-        return document.createTextNode('');
-    }
-    return document.createElement(virtual.type as string) as HTMLElement;
+export function render(
+    virtualDom: HTMLElement | JSX.Element | string,
+    realDomRoot: HTMLElement,
+) {
+    const evaluatedVirtualDom = evaluate(virtualDom);
+
+    const virtualDomRoot: VNode = {
+        type: realDomRoot.tagName.toLowerCase(),
+        key: null,
+        props: {
+            id: realDomRoot.id,
+            children: [evaluatedVirtualDom],
+        },
+    };
+
+    sync(virtualDomRoot, realDomRoot);
 }

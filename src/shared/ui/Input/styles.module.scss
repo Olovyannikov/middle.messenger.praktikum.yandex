@@ -1,0 +1,84 @@
+.label {
+  position: relative;
+  display: block;
+  border-radius: var(--size-md);
+  padding: var(--size-xl) var(--size-xl) var(--size-xs);
+  width: auto;
+  background-color: var(--input);
+  transition: 0.3s ease-in-out;
+
+  &:focus-within {
+    outline: 1px solid var(--monochrome-ash);
+
+    .clear {
+      visibility: visible;
+    }
+  }
+
+  &.full {
+    width: 100%;
+  }
+
+  &.error {
+    outline-color: var(--red-400);
+  }
+}
+
+.input {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font: inherit;
+  font-size: var(--size-md);
+  line-height: var(--size-xl);
+  background-color: var(--color-input);
+  transition: 0.3s ease-in-out;
+
+  &:focus,
+  &:not(:placeholder-shown) {
+    outline: none;
+
+    + .title {
+      top: 14px;
+      font-size: 14px;
+    }
+  }
+
+  &.error {
+    background-color: var(--red-50);
+  }
+}
+
+.title {
+  position: absolute;
+  left: var(--size-xl);
+  top: 50%;
+  font-size: var(--size-md);
+  line-height: 0;
+  color: var(--label);
+  transform: translateY(-50%);
+  transition: 0.3s ease-in-out;
+  pointer-events: none;
+}
+
+.clear {
+  position: absolute;
+  right: var(--size-xl);
+  top: 52%;
+  color: var(--label);
+  visibility: hidden;
+  transform: translateY(-50%);
+
+  svg {
+    pointer-events: none;
+  }
+}
+
+label.error {
+  outline: 1px solid var(--red-400);
+  background-color: var(--red-50);
+
+  .title {
+    color: var(--red-400);
+  }
+}

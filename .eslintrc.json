@@ -3,7 +3,6 @@
   "ignorePatterns": "./.eslintignore",
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    //    "project": "./tsconfig.json",
     "ecmaFeatures": {
       "jsx": true
     },
@@ -20,16 +19,14 @@
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
-    "plugin:react-hooks/recommended",
     "plugin:jsx-a11y/recommended",
     "plugin:import/typescript",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
     "react/prop-types": "off",
+    // сделать плагин для eslint для автоимпорта VDom
     "react/react-in-jsx-scope": "off",
     "import/no-default-export": "warn",
     "import/prefer-default-export": "off",

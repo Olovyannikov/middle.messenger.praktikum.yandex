@@ -5,7 +5,6 @@ export function router() {
 
     document.querySelectorAll('a[data-link]').forEach((link) => {
         (link as HTMLElement).addEventListener('click', (e: MouseEvent) => {
-            console.log(link);
             if (link) {
                 e.preventDefault();
                 history.pushState('', '', (link as HTMLAnchorElement).href);

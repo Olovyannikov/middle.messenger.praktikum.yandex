@@ -1,7 +1,6 @@
-import {VDom} from "@/jsx";
-import {Router} from './router';
+import { VDom } from '@/jsx';
+import { Router } from './router';
+
 export const App = () => {
-    return (
-        <Router/>
-    )
-}
+    return <Router />;
+};

@@ -7,19 +7,21 @@ interface LinkProps {
     children?: JSX.Element;
     className?: string;
     disabled?: boolean;
+    asRoute?: boolean;
 }
 
 export const Link = ({
     href,
     className = '',
     disabled = false,
+    asRoute = true,
     children,
 }: LinkProps) => {
     return (
         <a
             aria-disabled={disabled}
             href={href}
-            data-link={true}
+            data-link={asRoute}
             className={classNames(s.link, {}, [className])}
         >
             {children}

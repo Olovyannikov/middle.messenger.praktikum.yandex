@@ -1,8 +1,8 @@
 .text {
   margin: 0;
+  font-family: var(--font-family);
   line-height: 1.15;
   color: var(--monochrome-ash);
-  font-family: var(--font-family);
 }
 
 .text.h1 {
