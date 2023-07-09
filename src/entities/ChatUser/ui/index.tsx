@@ -3,9 +3,6 @@ import { classNames } from '@/shared/lib/clsx.ts';
 
 import s from './styles.module.scss';
 import { Typography } from '@/shared/ui/Typography';
-import { useRouter } from '@/shared/hooks/useRouter.ts';
-import { addOnClick } from '@/shared/lib/registerEvents.ts';
-import { searchParams } from '@/shared/lib/searchParams.ts';
 import { Button } from '@/shared/ui/Button';
 
 interface ChatUserProps {
@@ -27,11 +24,9 @@ export const ChatUser = ({
     className = '',
     chatId,
 }: ChatUserProps) => {
-    const { location } = useRouter();
-
     return (
         <article className={classNames(s.item, {}, [className])}>
-            <Button href={location + '?chat=' + chatId} className={s.user}>
+            <Button href={'#' + chatId} className={s.user}>
                 <span className={s.avatar}>
                     {avatarUrl && (
                         <img src={avatarUrl} alt={`Пользователь ${username}`} />
