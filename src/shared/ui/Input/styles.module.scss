@@ -82,3 +82,20 @@ label.error {
     color: var(--red-400);
   }
 }
+
+.small {
+  padding: var(--size-sm) var(--size-sm) var(--size-xs);
+}
+
+.small .input {
+  &:focus,
+  &:not(:placeholder-shown) {
+    outline: none;
+
+    + .title {
+      left: 12px;
+      top: 8px;
+      font-size: 10px;
+    }
+  }
+}

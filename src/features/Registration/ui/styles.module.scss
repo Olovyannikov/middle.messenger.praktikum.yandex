@@ -3,3 +3,19 @@
   letter-spacing: -1px;
   text-align: center;
 }
+
+.registration {
+  display: grid;
+
+  label {
+    margin-bottom: var(--size-lg);
+
+    &:last-of-type {
+      margin-bottom: var(--size-xl);
+    }
+  }
+
+  button:first-of-type {
+    margin-bottom: var(--size-xs);
+  }
+}

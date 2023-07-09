@@ -93,13 +93,6 @@ select {
   text-transform: none;
 }
 
-button,
-[type="button"],
-[type="reset"],
-[type="submit"] {
-  appearance: button;
-}
-
 button::-moz-focus-inner,
 [type="button"]::-moz-focus-inner,
 [type="reset"]::-moz-focus-inner,
@@ -157,7 +150,6 @@ textarea {
 }
 
 ::-webkit-file-upload-button {
-  appearance: button;
   font: inherit;
 }
 

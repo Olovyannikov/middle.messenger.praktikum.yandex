@@ -1,11 +1,12 @@
 import { VDom } from '@/jsx';
 import { Link } from '@/shared/ui/Link';
 import { classNames as clsx } from '@/shared/lib/clsx.ts';
+
 import s from './styles.module.scss';
 
 type ButtonSize = 'small' | 'medium' | 'large';
 type ButtonType = 'submit' | 'button';
-type ButtonVariant = 'primary' | 'secondary' | 'text';
+type ButtonVariant = 'primary' | 'secondary' | 'text' | 'info';
 
 interface ButtonProps {
     href?: string;
@@ -17,6 +18,7 @@ interface ButtonProps {
     disabled?: boolean;
     className?: string;
     hash?: boolean;
+    rounded?: boolean;
 }
 
 export const Button = ({
@@ -29,12 +31,14 @@ export const Button = ({
     size = 'medium',
     type = 'button',
     variant = 'primary',
+    rounded = false,
 }: ButtonProps) => {
     const classNames = clsx(
         s.btn,
         {
             [s[size]]: size,
             [s[variant]]: variant,
+            [s.rounded]: rounded,
         },
         [className],
     );

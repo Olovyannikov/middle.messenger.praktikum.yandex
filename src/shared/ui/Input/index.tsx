@@ -11,6 +11,7 @@ export interface InputProps {
     type?: 'text' | 'password';
     className?: string;
     placeholder?: string;
+    size?: 'small' | 'medium' | 'large';
 }
 
 export const Input = ({
@@ -21,6 +22,7 @@ export const Input = ({
     className = '',
     placeholder = ' ',
     title,
+    size = 'medium',
     ...props
 }: InputProps) => {
     return (
@@ -30,6 +32,7 @@ export const Input = ({
                 {
                     [s.full]: !!full,
                     [s.error]: !!errors,
+                    [s[size]]: size,
                 },
                 [className],
             )}
