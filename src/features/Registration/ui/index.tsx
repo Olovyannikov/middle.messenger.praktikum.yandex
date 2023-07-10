@@ -13,9 +13,17 @@ export const Registration = () => {
                 Когда-нибудь мы будем отправлять полезные ссылки - QR-код, или
                 пароли какие-то временные, но сейчас просто смешного котика.
             </Typography>
-            <Input title="Электронная почта" />
-            <Input title="Придумайте пароль" type="password" />
-            <Input title="Повторите пароль" type="password" />
+            <Input name="first_name" title="Имя" />
+            <Input name="second_name" title="Фамилия" />
+            <Input name="login" title="Логин" />
+            <Input name="phone" title="Номер телефона" />
+            <Input name="email" title="Электронная почта" />
+            <Input name="password" title="Придумайте пароль" type="password" />
+            <Input
+                name="repeat-password"
+                title="Повторите пароль"
+                type="password"
+            />
             <Button variant="primary">Зарегистрировться</Button>
             <Button hash href="#login" variant="text">
                 Уже зарегистрированы?

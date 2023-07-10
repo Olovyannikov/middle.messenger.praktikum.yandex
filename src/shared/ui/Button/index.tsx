@@ -9,6 +9,7 @@ type ButtonType = 'submit' | 'button';
 type ButtonVariant = 'primary' | 'secondary' | 'text' | 'info';
 
 interface ButtonProps {
+    id?: string | number;
     href?: string;
     onClick?: () => void;
     children?: JSX.Element;
@@ -32,6 +33,7 @@ export const Button = ({
     type = 'button',
     variant = 'primary',
     rounded = false,
+    ...props
 }: ButtonProps) => {
     const classNames = clsx(
         s.btn,
@@ -50,6 +52,7 @@ export const Button = ({
                 className={classNames}
                 disabled={disabled}
                 href={href}
+                {...props}
             >
                 {children}
             </Link>
@@ -61,6 +64,7 @@ export const Button = ({
             type={type}
             className={classNames}
             {...(onClick && { onClick })}
+            {...props}
         >
             {children}
         </button>

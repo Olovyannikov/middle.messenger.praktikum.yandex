@@ -1,0 +1,47 @@
+.settings {
+  display: grid;
+  place-content: center;
+  place-items: center;
+  margin: 0 auto;
+  height: 100dvh;
+  max-width: 800px;
+}
+
+.header {
+  margin-bottom: var(--size-lg);
+}
+
+.back {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 0;
+  gap: var(--size-xs);
+
+  img {
+    width: var(--size-3xl);
+  }
+}
+
+.avatar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--size-lg);
+
+  .image {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    background-color: var(--input);
+  }
+
+  input {
+    display: none;
+  }
+}
+
+.fields {
+  display: grid;
+  margin-bottom: var(--size-lg);
+  gap: var(--size-sm);
+}

@@ -12,6 +12,7 @@ export interface InputProps {
     className?: string;
     placeholder?: string;
     size?: 'small' | 'medium' | 'large';
+    name?: string;
 }
 
 export const Input = ({
@@ -23,6 +24,7 @@ export const Input = ({
     placeholder = ' ',
     title,
     size = 'medium',
+    name,
     ...props
 }: InputProps) => {
     return (
@@ -42,8 +44,9 @@ export const Input = ({
                     [s.error]: !!errors,
                 })}
                 type={type}
-                {...props}
                 placeholder={placeholder}
+                name={name}
+                {...props}
             />
             <span className={s.title}>{title}</span>
         </label>

@@ -13,7 +13,11 @@ export const ChatList = () => {
             <header className={s.header}>
                 <div className={s.top}>
                     <Typography className={s.title}>Чаты</Typography>
-                    <Button className={s.settings} variant="info">
+                    <Button
+                        href="/settings"
+                        className={s.settings}
+                        variant="info"
+                    >
                         <img src="./icons/settings.svg" alt="Настройки" />
                     </Button>
                 </div>

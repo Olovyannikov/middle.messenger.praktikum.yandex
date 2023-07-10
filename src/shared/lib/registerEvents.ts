@@ -1,8 +1,3 @@
-type Event = {
-    id: string;
-    callback: () => void;
-};
-
 const eventArray: Event[] = [];
 
 function handleEventListeners(e: MouseEvent) {
@@ -13,16 +8,20 @@ function handleEventListeners(e: MouseEvent) {
             e.target.id === target.id
         ) {
             e.preventDefault();
-            target.callback && target.callback();
+            target.callback && e && target.callback(e);
         }
     });
 }
 
+type Event = { id: string; callback: (event: MouseEvent) => void };
+
 export function addOnClick(
     id: string | undefined,
-    callback: (() => void) | undefined,
+    callback?: (event: MouseEvent) => void,
 ) {
-    id && callback && eventArray.push({ id, callback });
+    if (id && callback) {
+        eventArray.push({ id, callback });
+    }
 }
 
 window.addEventListener('click', (e: MouseEvent) => handleEventListeners(e));

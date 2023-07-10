@@ -3,14 +3,26 @@ import { VDom } from '@/jsx';
 import { Input } from '@/shared/ui/Input';
 import { Button } from '@/shared/ui/Button';
 import s from './styles.module.scss';
+import { addOnClick } from '@/shared/lib/registerEvents.ts';
 
 export const Login = () => {
+    const onSubmit = (e: MouseEvent) => {
+        e.preventDefault();
+        console.log('submit');
+    };
+
+    addOnClick('enter', onSubmit);
+
     return (
-        <section className={s.login}>
-            <Input title="Электронная почта" />
-            <Input title="Введите пароль" type="password" />
-            <Button variant="primary">Войти</Button>
-            <Button variant="text">Забыли пароль?</Button>
-        </section>
+        <form className={s.login}>
+            <Input name="email" title="Электронная почта" />
+            <Input name="password" title="Введите пароль" type="password" />
+            <Button id="enter" type="submit" variant="primary">
+                Войти
+            </Button>
+            <Button type="button" variant="text">
+                Забыли пароль?
+            </Button>
+        </form>
     );
 };

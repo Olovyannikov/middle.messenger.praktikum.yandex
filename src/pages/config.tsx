@@ -8,4 +8,9 @@ export const linksList = [
         route: '/random-not-found-state-page',
         children: 'Любая несуществуюущая страница',
     },
+    {
+        id: 5,
+        route: '/settings',
+        children: 'Настройки',
+    },
 ];

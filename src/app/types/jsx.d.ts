@@ -32,7 +32,7 @@ declare namespace JSX {
             draggable: 'true' | 'false';
             enterkeyhint: string;
             hidden: boolean;
-            id: string;
+            id: string | number;
             inputmode: string;
             is: string;
             itemid: string;
