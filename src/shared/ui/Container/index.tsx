@@ -8,12 +8,10 @@ interface ContainerProps {
     className?: string;
 }
 
-export const Container = ({
-    children,
-    className = '',
-    ...props
-}: ContainerProps): JSX.Element => (
-    <div className={classNames(s.container, {}, [className])} {...props}>
-        {children}
-    </div>
-);
+export const Container = ({ children, className = '' }: ContainerProps) => {
+    return (
+        <div className={classNames(s.container, {}, [className])}>
+            {children}
+        </div>
+    );
+};

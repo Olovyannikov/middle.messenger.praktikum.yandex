@@ -2,8 +2,9 @@ import { VDom } from '@/jsx';
 
 import { Input } from '@/shared/ui/Input';
 import { Button } from '@/shared/ui/Button';
-import s from './styles.module.scss';
 import { addOnClick } from '@/shared/lib/registerEvents.ts';
+
+import s from './styles.module.scss';
 
 export const Login = () => {
     const onSubmit = (e: MouseEvent) => {

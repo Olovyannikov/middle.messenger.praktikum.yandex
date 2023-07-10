@@ -1,6 +1,7 @@
 import { VDom } from '@/jsx';
 import { Link } from '@/shared/ui/Link';
 import { Typography } from '@/shared/ui/Typography';
+
 import { linksList } from './config.tsx';
 import s from './styles.module.scss';
 
