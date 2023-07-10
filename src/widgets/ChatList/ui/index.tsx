@@ -6,8 +6,6 @@ import { ChatUser } from '@/entities/ChatUser/ui';
 
 import { userMock } from '@/widgets/ChatList/ui/mock.ts';
 import s from './styles.module.scss';
-import { useParams } from '@/shared/hooks/useParams.ts';
-import { addOnClick } from '@/shared/lib/registerEvents.ts';
 
 export const ChatList = () => {
     return (
