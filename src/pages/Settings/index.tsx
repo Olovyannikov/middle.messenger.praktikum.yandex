@@ -6,8 +6,6 @@ import { Input } from '@/shared/ui/Input';
 import s from './styles.module.scss';
 
 export default function SettingsPage() {
-    console.log('page load');
-
     return (
         <section className={s.settings}>
             <header className={s.header}>

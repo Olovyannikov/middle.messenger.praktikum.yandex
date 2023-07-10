@@ -3,11 +3,15 @@ import { Typography } from '@/shared/ui/Typography';
 
 import { Input } from '@/shared/ui/Input';
 import { Button } from '@/shared/ui/Button';
+import { addOnClick } from '@/shared/lib/registerEvents.ts';
+
 import s from './styles.module.scss';
 
 export const Registration = () => {
+    addOnClick('register', () => console.log('register'));
+
     return (
-        <section className={s.registration}>
+        <form className={s.registration}>
             <Typography className={s.descr}>
                 На данный e-mail мы отправим какой-нибудь смешной мем.
                 Когда-нибудь мы будем отправлять полезные ссылки - QR-код, или
@@ -24,10 +28,12 @@ export const Registration = () => {
                 title="Повторите пароль"
                 type="password"
             />
-            <Button variant="primary">Зарегистрировться</Button>
+            <Button id="register" variant="primary">
+                Зарегистрировться
+            </Button>
             <Button hash href="#login" variant="text">
                 Уже зарегистрированы?
             </Button>
-        </section>
+        </form>
     );
 };
