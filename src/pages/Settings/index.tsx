@@ -1,6 +1,5 @@
 import { VDom } from '@/jsx';
 
-import { Container } from '@/shared/ui/Container';
 import { Button } from '@/shared/ui/Button';
 import { Input } from '@/shared/ui/Input';
 
