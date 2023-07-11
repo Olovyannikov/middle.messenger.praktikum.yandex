@@ -1,0 +1,45 @@
+.modal {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  border-radius: var(--size-xl);
+  padding: var(--size-3xl);
+  background-color: var(--off-white);
+  transform: translate(-50%, -50%);
+}
+
+.close {
+  @include btn-reset;
+
+  position: absolute;
+  right: var(--size-md);
+  top: var(--size-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: var(--size-xl);
+  height: var(--size-xl);
+  transition: 0.3s ease-in-out;
+
+  &:is(:hover, :focus-visible) {
+    background-color: var(--input);
+  }
+
+  img {
+    width: var(--size-xl);
+    height: var(--size-xl);
+    pointer-events: none;
+  }
+
+  &:focus-visible {
+    border: 1px solid var(--monochrome-ash);
+  }
+}
+
+.title {
+  margin: 0 0 var(--size-lg);
+  width: 100%;
+  font: var(--subtitle-m);
+  text-align: center;
+}

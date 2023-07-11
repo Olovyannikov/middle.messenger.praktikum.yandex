@@ -1,0 +1,27 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--size-md);
+  padding: var(--size-md) var(--size-xl);
+  font: var(--body-medium-l);
+  text-decoration: none;
+  color: var(--monochrome-ash, #262626);
+  background: var(--main-green-300, #b9f348);
+}
+
+.small {
+  padding: var(--size-sm) var(--size-xl);
+}
+
+.text {
+  background-color: transparent;
+}
+
+.info {
+  background-color: var(--background);
+}
+
+.rounded {
+  border-radius: 50%;
+}

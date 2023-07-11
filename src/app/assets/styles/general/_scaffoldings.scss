@@ -1,0 +1,56 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  box-sizing: inherit;
+  scroll-behavior: smooth;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font: var(--body-regular-m);
+  line-height: 1.1;
+  color: var(--monochrome-ash);
+  background-color: var(--background);
+}
+
+img {
+  max-width: 100%;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+input {
+  border: none;
+}
+
+label {
+  cursor: pointer;
+}
+
+ul,
+ol {
+  @include list-reset;
+}
+
+button {
+  @include btn-reset;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: none;
+  box-shadow: inset 0 0 0 50px var(--color-input);
+  -webkit-text-fill-color: inherit;
+  background-color: transparent;
+}

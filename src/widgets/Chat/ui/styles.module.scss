@@ -1,0 +1,17 @@
+.chat {
+  width: 100%;
+  height: 100dvh;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  place-content: center;
+  place-items: center;
+  height: 100dvh;
+
+  img {
+    overflow: inherit;
+    width: 72px;
+  }
+}

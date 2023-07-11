@@ -1,0 +1,50 @@
+.list {
+  @include list-reset;
+
+  position: relative;
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  margin-bottom: var(--size-xl);
+  width: 100%;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: calc(-1 * var(--size-3xl));
+    bottom: 0;
+    width: calc(100% + var(--size-3xl) * 2);
+    height: 1px;
+    background-color: #ccc;
+  }
+}
+
+.item {
+  position: relative;
+  text-align: center;
+  opacity: 0.3;
+
+  &.active {
+    opacity: 1;
+  }
+
+  &:last-child.active::after {
+    left: unset;
+    right: calc(-1 * var(--size-3xl));
+  }
+
+  &.active:not(:first-child, :last-child) {
+    left: unset;
+    right: unset;
+  }
+
+  &.active::after {
+    content: "";
+    position: absolute;
+    left: calc(-1 * var(--size-3xl));
+    bottom: 0;
+    width: calc(100% + var(--size-3xl));
+    height: 2px;
+    background-color: var(--monochrome-ash);
+  }
+}
