@@ -1,27 +1,38 @@
-const eventArray: Event[] = [];
+const eventArray: EventRegistration<Event | MouseEvent>[] = [];
 
-function handleEventListeners(e: MouseEvent) {
-    eventArray.forEach((target: Event) => {
-        if (
-            e.target &&
-            e.target instanceof Element &&
-            e.target.id === target.id
-        ) {
-            e.preventDefault();
-            target.callback && e && target.callback(e);
-        }
+function handleEventListeners(event: Event) {
+    const target = event.target as HTMLElement;
+    const matchingEvents = eventArray.filter(
+        (eventRegistration) => eventRegistration.id === target.id,
+    );
+
+    matchingEvents.forEach((eventRegistration) => {
+        eventRegistration.callback(event);
     });
 }
 
-type Event = { id: string; callback: (event: MouseEvent) => void };
+interface EventRegistration<T> {
+    id: string;
+    callback: (event: T) => void;
+}
 
 export function addOnClick(
     id: string | undefined,
-    callback?: (event: MouseEvent) => void,
+    callback?: (event: Event) => void,
 ) {
     if (id && callback) {
         eventArray.push({ id, callback });
     }
 }
 
-window.addEventListener('click', (e: MouseEvent) => handleEventListeners(e));
+export function addOnSubmit(
+    id: string | undefined,
+    callback?: (event: Event) => void,
+) {
+    if (id && callback) {
+        eventArray.push({ id, callback });
+    }
+}
+
+window.addEventListener('click', handleEventListeners);
+window.addEventListener('submit', handleEventListeners);
