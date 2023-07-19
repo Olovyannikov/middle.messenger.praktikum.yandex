@@ -4,7 +4,7 @@
   position: relative;
   display: grid;
   align-items: center;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   margin-bottom: var(--size-xl);
   width: 100%;
 
@@ -17,6 +17,10 @@
     height: 1px;
     background-color: #ccc;
   }
+
+  @include md-block {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
 }
 
 .item {
@@ -24,13 +28,13 @@
   text-align: center;
   opacity: 0.3;
 
-  &.active {
-    opacity: 1;
-  }
-
   &:last-child.active::after {
     left: unset;
     right: calc(-1 * var(--size-3xl));
+  }
+
+  &.active {
+    opacity: 1;
   }
 
   &.active:not(:first-child, :last-child) {

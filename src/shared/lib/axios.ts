@@ -1,21 +1,23 @@
-interface AxiosRequestConfig {
+export interface AxiosRequestConfig<T> {
+    baseURL?: string;
     method?: string;
     url: string;
-    data?: never;
-    headers?: never;
+    data?: T;
+    headers?: Headers | Record<string, string>;
     timeout?: number;
+    withCredentials?: boolean;
 }
 
-interface AxiosResponse<T = never> {
+export interface AxiosResponse<T = unknown> {
     data: T;
     status: number;
     statusText: string;
-    headers: string;
-    config: AxiosRequestConfig;
+    headers: Headers | Record<string, string> | string;
+    config: AxiosRequestConfig<T>;
 }
 
 interface AxiosError<T = never> extends Error {
-    config: AxiosRequestConfig;
+    config: AxiosRequestConfig<T>;
     code?: string;
     request?: XMLHttpRequest;
     response?: AxiosResponse<T>;
@@ -24,17 +26,26 @@ interface AxiosError<T = never> extends Error {
 
 function createError<T>(
     message: string,
-    config: AxiosRequestConfig,
+    config: AxiosRequestConfig<T>,
     code?: string,
     request?: XMLHttpRequest,
     response?: AxiosResponse<T>,
 ): AxiosError<T> {
-    const error = new Error(message) as AxiosError<T>;
+    const error: AxiosError<T> = new Error(message) as AxiosError<T>;
     error.config = config;
     error.code = code;
     error.request = request;
     error.response = response;
     error.isAxiosError = true;
+
+    if (response) {
+        error.message = `Request failed with status ${response.status}`;
+    } else if (request) {
+        error.message = 'Request failed';
+    } else {
+        error.message = 'Error occurred during request';
+    }
+
     return error;
 }
 
@@ -42,12 +53,12 @@ class InterceptorManager<T> {
     private interceptors: Array<Interceptor<T>> = [];
 
     use(
-        onFulfilled?: (value: T) => T | Promise<T>,
-        onRejected?: (error: never) => never,
+        onFulfilled?: InterceptorFulfilled<T>,
+        onRejected?: InterceptorRejected<T>,
     ): number {
         this.interceptors.push({
-            onFulfilled,
-            onRejected,
+            onFulfilled: onFulfilled,
+            onRejected: onRejected,
         });
         return this.interceptors.length - 1;
     }
@@ -65,38 +76,72 @@ class InterceptorManager<T> {
     }
 }
 
+type InterceptorFulfilled<T> = (value: T) => T | Promise<T>;
+type InterceptorRejected<T> = (error: AxiosError<T>) => unknown;
+
 interface Interceptor<T> {
     onFulfilled?: (value: T) => T | Promise<T>;
-    onRejected?: (error: never) => never;
+    onRejected?: (error: AxiosError<T>) => unknown;
 }
 
-export class Axios {
-    interceptors = {
-        request: new InterceptorManager<AxiosRequestConfig>(),
-        response: new InterceptorManager<AxiosResponse>(),
+export class Axios<T = unknown> {
+    defaultConfig: AxiosRequestConfig<T> = {
+        method: 'GET',
+        url: '',
+        headers: {},
+        timeout: 0,
+        withCredentials: true,
     };
 
-    request<T = never>(config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+    interceptors = {
+        request: new InterceptorManager<AxiosRequestConfig<T>>(),
+        response: new InterceptorManager<AxiosResponse<T>>(),
+    };
+
+    constructor(config: AxiosRequestConfig<T> = { url: '' }) {
+        this.defaultConfig = { ...this.defaultConfig, ...config };
+    }
+
+    request<U = T>(config: AxiosRequestConfig<U>): Promise<AxiosResponse<U>> {
+        const mergedConfig: AxiosRequestConfig<U> = {
+            ...this.defaultConfig,
+            ...config,
+        } as AxiosRequestConfig<U>;
+
+        if (mergedConfig.baseURL && !mergedConfig.url.startsWith('http')) {
+            mergedConfig.url = mergedConfig.baseURL + mergedConfig.url;
+        }
+
         return new Promise((resolve, reject) => {
             const request = new XMLHttpRequest();
-            request.open(config.method || 'GET', config.url);
+            request.withCredentials = config.withCredentials ?? true;
+            request.open(config.method || 'GET', mergedConfig.url);
 
-            if (config.headers) {
-                Object.keys(config.headers).forEach((key) => {
-                    config.headers &&
-                        request.setRequestHeader(key, config.headers[key]);
+            if (mergedConfig.headers) {
+                Object.keys(mergedConfig.headers).forEach((key) => {
+                    if (mergedConfig.headers instanceof Headers) {
+                        request.setRequestHeader(
+                            key,
+                            (mergedConfig.headers as Headers).get(key) ?? '',
+                        );
+                    } else {
+                        request.setRequestHeader(
+                            key,
+                            mergedConfig.headers?.[key] ?? '',
+                        );
+                    }
                 });
             }
 
-            request.timeout = config.timeout || 0;
+            request.timeout = mergedConfig.timeout || 0;
 
             request.onload = function () {
-                const response: AxiosResponse<T> = {
-                    data: request.responseText as T,
+                const response: AxiosResponse<U> = {
+                    data: request.responseText as U,
                     status: request.status,
                     statusText: request.statusText,
                     headers: request.getAllResponseHeaders(),
-                    config: config,
+                    config: mergedConfig,
                 };
 
                 if (request.status >= 200 && request.status < 300) {
@@ -105,7 +150,7 @@ export class Axios {
                     reject(
                         createError(
                             request.statusText,
-                            config,
+                            mergedConfig,
                             undefined,
                             request,
                             response,
@@ -116,7 +161,12 @@ export class Axios {
 
             request.onerror = function () {
                 reject(
-                    createError('Network error', config, undefined, request),
+                    createError(
+                        'Network error',
+                        mergedConfig,
+                        undefined,
+                        request,
+                    ),
                 );
             };
 
@@ -124,27 +174,36 @@ export class Axios {
                 reject(
                     createError(
                         'Request timeout',
-                        config,
+                        mergedConfig,
                         'ECONNABORTED',
                         request,
                     ),
                 );
             };
 
-            request.send(config.data);
+            request.send(
+                JSON.stringify(mergedConfig.data) as
+                    | Document
+                    | XMLHttpRequestBodyInit,
+            );
         });
     }
 
     get<T = never>(
         url: string,
-        config?: AxiosRequestConfig,
+        config?: AxiosRequestConfig<T>,
     ): Promise<AxiosResponse<T>> {
-        return this.request<T>({ ...config, method: 'GET', url });
+        console.log(config);
+        return this.request<T>({
+            ...config,
+            method: 'GET',
+            url: (config?.url ?? '') + url,
+        });
     }
 
     delete<T = never>(
         url: string,
-        config?: AxiosRequestConfig,
+        config?: AxiosRequestConfig<T>,
     ): Promise<AxiosResponse<T>> {
         return this.request<T>({ ...config, method: 'DELETE', url });
     }
@@ -152,25 +211,30 @@ export class Axios {
     patch<T = never>(
         url: string,
         data?: never,
-        config?: AxiosRequestConfig,
+        config?: AxiosRequestConfig<T>,
     ): Promise<AxiosResponse<T>> {
         return this.request<T>({ ...config, method: 'PATCH', url, data });
     }
 
-    post<T = never>(
+    post<T>(
         url: string,
-        data?: never,
-        config?: AxiosRequestConfig,
+        data?: T,
+        config?: AxiosRequestConfig<T>,
     ): Promise<AxiosResponse<T>> {
         return this.request<T>({ ...config, method: 'POST', url, data });
     }
 
-    create(config?: AxiosRequestConfig): Axios {
-        const instance = new Axios();
-        if (config) {
-            instance.interceptors.request = this.interceptors.request;
-            instance.interceptors.response = this.interceptors.response;
-        }
+    create(config?: AxiosRequestConfig<T>): Axios<T> {
+        const instanceConfig = {
+            ...this.defaultConfig,
+            ...config,
+        } as AxiosRequestConfig<T>;
+
+        const instance = new Axios<T>(instanceConfig);
+        instance.interceptors.request = this.interceptors
+            .request as InterceptorManager<AxiosRequestConfig<T>>;
+        instance.interceptors.response = this.interceptors
+            .response as InterceptorManager<AxiosResponse<T>>;
         return instance;
     }
 }

@@ -2,34 +2,12 @@ export interface VNode {
     type: string | (() => void);
     key: string | null;
     props: any;
+    domNode?: HTMLElement | Text | null;
 }
-
-export const VDom = {
-    createElement: (
-        type: string | (() => void),
-        config: any,
-        ...children: any[]
-    ) => {
-        const key = config ? config.key || null : null;
-        const props = config || {};
-
-        if (children.length === 1) {
-            props.children = children[0];
-        } else {
-            props.children = children;
-        }
-
-        return {
-            type,
-            key,
-            props,
-        };
-    },
-};
 
 function createRealNodeByVirtual(virtual: VNode | string): HTMLElement | Text {
     if (typeof virtual !== 'object') {
-        return document.createTextNode('');
+        return document.createTextNode(String(virtual));
     }
     return document.createElement(virtual.type as string) as HTMLElement;
 }
@@ -72,7 +50,9 @@ function sync(virtualNode: VNode, realNode: HTMLElement | Text): void {
                 name = 'onclick';
             }
 
-            if ((realNode as HTMLElement).getAttribute(name) !== value) {
+            if (
+                (realNode as HTMLElement).getAttribute(name) !== String(value)
+            ) {
                 (realNode as HTMLElement).setAttribute(name, String(value));
             }
         });
@@ -81,7 +61,7 @@ function sync(virtualNode: VNode, realNode: HTMLElement | Text): void {
         realNode.dataset.key = virtualNode.key;
     }
     if (typeof virtualNode !== 'object' && virtualNode !== realNode.nodeValue) {
-        realNode.nodeValue = virtualNode;
+        realNode.nodeValue = String(virtualNode);
     }
 
     // Sync child nodes
@@ -96,18 +76,19 @@ function sync(virtualNode: VNode, realNode: HTMLElement | Text): void {
         i++
     ) {
         const virtual = virtualChildren[i];
-        const real = realChildren[i] as HTMLElement | undefined;
+        const real = realChildren[i] as HTMLElement | Text | undefined;
 
         // Remove
         if (virtual === undefined && real !== undefined) {
-            realNode.remove();
+            realNode.removeChild(real);
         }
 
         // Update
         if (
             virtual !== undefined &&
             real !== undefined &&
-            (virtual.type || '') === (real.tagName || '').toLowerCase()
+            (virtual.type || '') ===
+                (real instanceof HTMLElement ? real.tagName.toLowerCase() : '')
         ) {
             sync(virtual, real);
         }
@@ -116,7 +97,8 @@ function sync(virtualNode: VNode, realNode: HTMLElement | Text): void {
         if (
             virtual !== undefined &&
             real !== undefined &&
-            (virtual.type || '') !== (real.tagName || '').toLowerCase()
+            (virtual.type || '') !==
+                (real instanceof HTMLElement ? real.tagName.toLowerCase() : '')
         ) {
             const newReal = createRealNodeByVirtual(virtual);
             sync(virtual, newReal);
@@ -134,18 +116,79 @@ function sync(virtualNode: VNode, realNode: HTMLElement | Text): void {
 
 export function render(
     virtualDom: HTMLElement | JSX.Element | string,
-    realDomRoot: HTMLElement,
-) {
+    realDomRoot: HTMLElement | string,
+): HTMLElement {
     const evaluatedVirtualDom = evaluate(virtualDom);
 
+    const realDomRootNode =
+        typeof realDomRoot === 'string'
+            ? document.querySelector(realDomRoot)
+            : realDomRoot;
+
+    if (!realDomRootNode) {
+        throw new Error('Invalid root node');
+    }
+
     const virtualDomRoot: VNode = {
-        type: realDomRoot.tagName.toLowerCase(),
+        type: 'div',
         key: null,
         props: {
-            id: realDomRoot.id,
             children: [evaluatedVirtualDom],
         },
     };
 
-    sync(virtualDomRoot, realDomRoot);
+    const rootRealNode = createRealNodeByVirtual(virtualDomRoot);
+    sync(virtualDomRoot, rootRealNode);
+
+    realDomRootNode.innerHTML = '';
+    realDomRootNode.appendChild(rootRealNode);
+
+    return rootRealNode as HTMLElement;
 }
+
+export function getRealNodesByAttribute(
+    rootRealNode: HTMLElement,
+    attribute: string,
+    value?: string,
+): HTMLElement[] {
+    const matchingNodes: HTMLElement[] = [];
+
+    function findNodes(node: HTMLElement) {
+        if (node.getAttribute(attribute) === value || !value) {
+            matchingNodes.push(node);
+        }
+
+        const children = node.children;
+        for (let i = 0; i < children.length; i++) {
+            findNodes(children[i] as HTMLElement);
+        }
+    }
+
+    findNodes(rootRealNode);
+
+    return matchingNodes;
+}
+
+export const VDom = {
+    createElement: (
+        type: string | (() => void),
+        config: any,
+        ...children: any[]
+    ) => {
+        const key = config ? config.key || null : null;
+        const props = config || {};
+
+        if (children.length === 1) {
+            props.children = children[0];
+        } else {
+            props.children = children;
+        }
+
+        return {
+            type,
+            key,
+            props,
+        };
+    },
+    render,
+};

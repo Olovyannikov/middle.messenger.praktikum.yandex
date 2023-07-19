@@ -1,6 +1,6 @@
 import { VDom } from '@/jsx';
 import { classNames } from '@/shared/lib/clsx.ts';
-import { addOnClick } from '@/shared/lib/registerEvents.ts';
+import { addEventListener } from '@/shared/lib/registerEvents.ts';
 import s from './styles.module.scss';
 
 interface ModalProps {
@@ -26,7 +26,7 @@ export const Modal = ({
         return null;
     }
 
-    addOnClick(id, onClose);
+    addEventListener(id, onClose);
 
     return (
         <div className={classNames(s.modal, {}, [className])}>

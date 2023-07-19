@@ -1,4 +1,10 @@
 .auth {
+  overflow-y: scroll;
   width: 100%;
+  height: 100vh;
   max-width: 628px;
+
+  @include md-block {
+    height: fit-content;
+  }
 }

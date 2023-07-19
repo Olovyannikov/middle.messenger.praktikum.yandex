@@ -1,11 +1,16 @@
 .label {
   position: relative;
   display: block;
+  outline: 1px solid var(--input);
   border-radius: var(--size-md);
   padding: var(--size-xl) var(--size-xl) var(--size-xs);
   width: auto;
   background-color: var(--input);
   transition: 0.3s ease-in-out;
+
+  &:global(.error) {
+    outline-color: var(--red-400);
+  }
 
   &:focus-within {
     outline: 1px solid var(--monochrome-ash);
@@ -17,10 +22,6 @@
 
   &.full {
     width: 100%;
-  }
-
-  &.error {
-    outline-color: var(--red-400);
   }
 }
 
@@ -98,4 +99,16 @@ label.error {
       font-size: 10px;
     }
   }
+}
+
+.label:has([data-error]) {
+  margin-bottom: var(--size-xl);
+}
+
+.label [data-error] {
+  position: absolute;
+  left: var(--size-xl);
+  bottom: calc(-1 * var(--size-lg));
+  font: var(--body-regular-xs);
+  color: var(--red-400);
 }

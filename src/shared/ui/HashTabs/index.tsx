@@ -2,8 +2,8 @@ import { VDom } from '@/jsx';
 import { Button } from '@/shared/ui/Button';
 import { useRouter } from '@/shared/hooks/useRouter.ts';
 
-import s from './styles.module.scss';
 import { classNames } from '@/shared/lib/clsx.ts';
+import s from './styles.module.scss';
 
 export interface TabProps {
     key: string;

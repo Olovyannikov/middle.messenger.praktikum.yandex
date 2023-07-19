@@ -1,4 +1,4 @@
-import { render } from '@/jsx';
+import { render, VDom } from '@/jsx';
 import { router } from '@/shared/lib/router.ts';
 
 import { App } from './app/App.tsx';
@@ -9,7 +9,7 @@ const app = document.querySelector<HTMLDivElement>('#app') as HTMLElement;
 
 // ручка для перерендера приложения (например, смена состояний (flux-state) или роутинга)
 export function renderView() {
-    render(App(), app);
+    render(<App />, app);
 }
 
 // Инициализация роутера
