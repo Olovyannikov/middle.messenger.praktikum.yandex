@@ -2,14 +2,51 @@ export interface VNode {
     type: string | (() => void);
     key: string | null;
     props: any;
-    domNode?: HTMLElement | Text | null;
+    eventListeners?: Record<string, (e: Event) => void>;
 }
 
 function createRealNodeByVirtual(virtual: VNode | string): HTMLElement | Text {
     if (typeof virtual !== 'object') {
         return document.createTextNode(String(virtual));
     }
-    return document.createElement(virtual.type as string) as HTMLElement;
+
+    const realNode = document.createElement(
+        virtual.type as string,
+    ) as HTMLElement;
+
+    // Store event listeners
+    if (virtual.props) {
+        const props = virtual.props;
+        virtual.eventListeners = {};
+        Object.entries(props).forEach(([name, value]) => {
+            if (name.startsWith('on')) {
+                const eventName = name.slice(2).toLowerCase();
+                if (eventName && virtual.eventListeners) {
+                    virtual.eventListeners[eventName] = value as (
+                        e: Event,
+                    ) => void;
+
+                    if (eventName === 'submit') {
+                        realNode.addEventListener(eventName, (e) => {
+                            e.preventDefault(); // Prevent the default form submission
+                            (value as (event: Event) => void)(e); // Call the original event handler
+                        });
+                    } else {
+                        realNode.addEventListener(
+                            eventName,
+                            value as (event: Event) => void,
+                        );
+                    }
+                }
+                realNode.addEventListener(
+                    eventName,
+                    value as (event: Event) => void,
+                );
+            }
+        });
+    }
+
+    return realNode;
 }
 
 function evaluate(virtualNode: any): any {
@@ -18,7 +55,15 @@ function evaluate(virtualNode: any): any {
     }
 
     if (typeof virtualNode.type === 'function') {
-        return evaluate(virtualNode.type(virtualNode.props));
+        const componentKey = virtualNode.key || String(Math.random()); // Генерируем уникальный ключ для компонента
+        const evaluatedComponent = evaluate(
+            virtualNode.type(virtualNode.props),
+        );
+
+        return evaluate({
+            ...evaluatedComponent,
+            key: componentKey,
+        });
     }
 
     const props = virtualNode.props || {};
@@ -46,8 +91,39 @@ function sync(virtualNode: VNode, realNode: HTMLElement | Text): void {
                 name = 'class';
             }
 
-            if (name === 'onClick') {
-                name = 'onclick';
+            if (
+                name === 'onClick' ||
+                name === 'onSubmit' ||
+                name === 'onBlur'
+            ) {
+                // Add type assertion to let TypeScript know the correct type for event listener
+                const eventName = name
+                    .slice(2)
+                    .toLowerCase() as keyof HTMLElementEventMap;
+                (realNode as HTMLElement).addEventListener(
+                    eventName,
+                    value as (event: Event) => void,
+                );
+
+                return;
+            }
+
+            if (realNode instanceof HTMLElement) {
+                const existingEventListeners = virtualNode.eventListeners || {};
+
+                Object.entries(existingEventListeners).forEach(
+                    ([eventName, eventListener]) => {
+                        if (
+                            !virtualNode.props ||
+                            !virtualNode.props[eventName]
+                        ) {
+                            realNode.removeEventListener(
+                                eventName,
+                                eventListener,
+                            );
+                        }
+                    },
+                );
             }
 
             if (

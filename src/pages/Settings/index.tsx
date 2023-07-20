@@ -26,6 +26,7 @@ export default function SettingsPage() {
                     <div className={s.fields}>
                         <Input name="first_name" title="Имя" />
                         <Input name="second_name" title="Фамилия" />
+                        <Input name="display_name" title="Имя в чате" />
                         <Input name="login" title="Логин" />
                         <Input name="email" title="Почта" />
                         <Input name="phone" title="Телефон" />

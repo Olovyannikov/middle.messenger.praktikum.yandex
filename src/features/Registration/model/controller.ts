@@ -1,15 +1,14 @@
 import { AuthService } from '@/services/Auth/Auth.service.ts';
 import { FormState } from '@/shared/types/Form.ts';
-import { addEventListener } from '@/shared/lib/registerEvents.ts';
 import { AuthSignupRequest } from '@/services/Auth/Auth.dto.ts';
 import { formErrorsMap } from '@/shared/constants/formErrors.ts';
 
 export let isValid = true;
 
-addEventListener('register', async (e) => {
+export const onRegisterHandler = async (e: MouseEvent) => {
     e.preventDefault();
 
-    const form: HTMLElement | null = document.getElementById('register');
+    const form: HTMLElement | null = e.target as HTMLElement;
     const formData = new FormData(form as HTMLFormElement);
 
     const getFormState: Record<keyof typeof formErrorsMap, FormState> = {};
@@ -64,4 +63,4 @@ addEventListener('register', async (e) => {
         await AuthService.signup(preparedData);
         window.location.hash = '#login';
     }
-});
+};

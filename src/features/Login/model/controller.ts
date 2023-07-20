@@ -1,13 +1,12 @@
-import { addEventListener } from '@/shared/lib/registerEvents.ts';
 import { FormState } from '@/shared/types/Form.ts';
 import { AuthService } from '@/services/Auth/Auth.service.ts';
 import { AuthSignInRequest } from '@/services/Auth/Auth.dto.ts';
 import { toast } from '@/shared/ui/Toast/ToastManager.tsx';
 
-addEventListener('enter', async (e) => {
+export const onSubmitHandler = async (e: MouseEvent) => {
     e.preventDefault();
 
-    const form = document.getElementById('enter');
+    const form = e.target;
     const formData = new FormData(form as HTMLFormElement);
     const formState: Record<string, FormState> = {};
     const preparedData: AuthSignInRequest = {} as AuthSignInRequest;
@@ -33,4 +32,4 @@ addEventListener('enter', async (e) => {
                 duration: 3000,
             });
         });
-});
+};

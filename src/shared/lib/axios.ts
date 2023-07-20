@@ -193,7 +193,6 @@ export class Axios<T = unknown> {
         url: string,
         config?: AxiosRequestConfig<T>,
     ): Promise<AxiosResponse<T>> {
-        console.log(config);
         return this.request<T>({
             ...config,
             method: 'GET',

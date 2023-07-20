@@ -3,12 +3,16 @@ import { Typography } from '@/shared/ui/Typography';
 
 import { Input } from '@/shared/ui/Input';
 import { Button } from '@/shared/ui/Button';
-import '../model/controller.ts';
+import { onRegisterHandler } from '@/features/Registration/model/controller.ts';
 import s from './styles.module.scss';
 
 export const Registration = () => {
     return (
-        <form className={s.registration} id="register" name="register">
+        <form
+            className={s.registration}
+            onSubmit={onRegisterHandler}
+            name="register"
+        >
             <Typography className={s.descr}>
                 На данный e-mail мы отправим какой-нибудь смешной мем.
                 Когда-нибудь мы будем отправлять полезные ссылки - QR-код, или
