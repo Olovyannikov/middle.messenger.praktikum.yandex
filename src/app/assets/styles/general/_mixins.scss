@@ -35,3 +35,39 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: $lines;
 }
+
+@mixin xxl-block {
+  @media (min-width: (1400px)) {
+    @content;
+  }
+}
+
+@mixin xl-block {
+  @media (min-width: (1200px)) {
+    @content;
+  }
+}
+
+@mixin lg-block {
+  @media (min-width: (992px)) {
+    @content;
+  }
+}
+
+@mixin md-block {
+  @media (min-width: (768px)) {
+    @content;
+  }
+}
+
+@mixin sm-block {
+  @media (min-width: 576px) {
+    @content;
+  }
+}
+
+@mixin breakpoint($breakpoint) {
+  @media (min-width: $breakpoint) {
+    @content;
+  }
+}

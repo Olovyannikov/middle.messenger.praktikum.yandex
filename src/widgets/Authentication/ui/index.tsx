@@ -6,6 +6,7 @@ import { HashTabs } from '@/shared/ui/HashTabs';
 import { useRouter } from '@/shared/hooks/useRouter.ts';
 
 import { authTabs } from './config.tsx';
+import '../model/validation.ts';
 import s from './styles.module.scss';
 
 export const Authentication = () => {

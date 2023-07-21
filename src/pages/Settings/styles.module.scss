@@ -1,8 +1,9 @@
 .settings {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   place-content: center;
-  place-items: center;
-  margin: 0 auto;
+  margin: auto;
+  padding: var(--size-lg);
   height: 100dvh;
   max-width: 800px;
 }
@@ -21,6 +22,10 @@
   img {
     width: var(--size-3xl);
   }
+}
+
+.form {
+  display: grid;
 }
 
 .avatar {
@@ -44,4 +49,8 @@
   display: grid;
   margin-bottom: var(--size-lg);
   gap: var(--size-sm);
+}
+
+.save {
+  margin-left: auto;
 }

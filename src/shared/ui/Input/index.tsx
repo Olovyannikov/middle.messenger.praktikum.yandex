@@ -8,11 +8,12 @@ export interface InputProps {
     full?: boolean;
     message?: string;
     errors?: boolean;
-    type?: 'text' | 'password';
+    type?: 'text' | 'password' | 'email';
     className?: string;
     placeholder?: string;
     size?: 'small' | 'medium' | 'large';
     name?: string;
+    required?: boolean;
 }
 
 export const Input = ({
@@ -25,6 +26,7 @@ export const Input = ({
     title,
     size = 'medium',
     name,
+    required = false,
     ...props
 }: InputProps) => {
     return (
@@ -43,6 +45,7 @@ export const Input = ({
                 className={classNames(s.input, {
                     [s.error]: !!errors,
                 })}
+                required={required}
                 type={type}
                 placeholder={placeholder}
                 name={name}

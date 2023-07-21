@@ -18,7 +18,7 @@ export default function SettingsPage() {
                 </Button>
             </header>
             <main>
-                <form>
+                <form className={s.form}>
                     <label className={s.avatar} aria-label="Изменить аватар">
                         <div className={s.image} aria-hidden={true} />
                         <input type="file" />
@@ -26,11 +26,14 @@ export default function SettingsPage() {
                     <div className={s.fields}>
                         <Input name="first_name" title="Имя" />
                         <Input name="second_name" title="Фамилия" />
+                        <Input name="display_name" title="Имя в чате" />
                         <Input name="login" title="Логин" />
                         <Input name="email" title="Почта" />
                         <Input name="phone" title="Телефон" />
                     </div>
-                    <Button type="submit">Сохранить</Button>
+                    <Button className={s.save} type="submit">
+                        Сохранить
+                    </Button>
                 </form>
             </main>
         </section>

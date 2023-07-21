@@ -656,7 +656,14 @@
     "selector-no-qualifying-type": null,
     "selector-no-vendor-prefix": true,
     "selector-pseudo-class-case": "lower",
-    "selector-pseudo-class-no-unknown": true,
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        "ignorePseudoClasses": [
+          "global"
+        ]
+      }
+    ],
     "selector-pseudo-class-parentheses-space-inside": "never",
     "selector-pseudo-element-case": "lower",
     "selector-pseudo-element-colon-notation": "double",
@@ -733,9 +740,15 @@
     "scss/percent-placeholder-pattern": null,
     "scss/selector-no-redundant-nesting-selector": true
   },
-  "overrides": [{
-    "files": ["src/*/**.{css,scss}"],
-    "customSyntax": "postcss-scss"
-  }],
-  "ignoreFiles": ["src/app/**/*.{css,scss}"]
+  "overrides": [
+    {
+      "files": [
+        "src/*/**.{css,scss}"
+      ],
+      "customSyntax": "postcss-scss"
+    }
+  ],
+  "ignoreFiles": [
+    "src/app/**/*.{css,scss}"
+  ]
 }

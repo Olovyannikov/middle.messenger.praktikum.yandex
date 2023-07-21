@@ -9,6 +9,8 @@ declare namespace JSX {
         style: Partial<CSSStyleDeclaration> | string;
     }>;
 
+    type Event = Event | MouseEvent;
+
     type CommonEvents = {
         [E in keyof GlobalEventHandlers]?: GlobalEventHandlers[E];
     };
