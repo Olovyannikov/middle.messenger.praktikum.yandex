@@ -1,7 +1,7 @@
 import { Toast, ToastProps } from './Toast';
 import s from './styles.module.scss';
-import React from '@/jsx/core/VDom.ts';
-import DOM from '@/jsx/dom/client/DOM.ts';
+import { VDom } from '@/jsx';
+import DOM from '../../../jsx/dom/client/DOM.ts';
 
 interface ToastOptions {
     id?: string;

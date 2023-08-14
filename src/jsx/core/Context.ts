@@ -1,8 +1,8 @@
-import { ReactContext, Provider, Consumer } from '../shared/ElementType.ts';
+import { ContextModel, Provider, Consumer } from '../shared/ElementType.ts';
 
 function createContext<T extends Record<string, any>>(
     context: T | undefined,
-): ReactContext<T> {
+): ContextModel<T> {
     const Provider: Provider<T> = ({ children, value }) => {
         context = value;
         return children;

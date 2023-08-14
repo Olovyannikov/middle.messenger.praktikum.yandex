@@ -1,3 +1,5 @@
+import { JSX } from '@/app/types/jsx';
+
 interface MutableRefObject<T> {
     current: T;
 }
@@ -11,7 +13,7 @@ interface Props<T> {
     [compatibleProps: string]: any;
 }
 
-interface ReactElement {
+interface VDomElement {
     $$typeof: symbol;
     props: Props<any>;
     tag: any;
@@ -20,22 +22,22 @@ interface ReactElement {
 type FC<T extends Record<string, any>> = (
     props: T,
     ...params: any[]
-) => ReactElement;
+) => VDomElement;
 type RefForwardingComponent<T, P> = (
     props: P,
     ref: MutableRefObject<T>,
-) => ReactElement;
+) => VDomElement;
 
 export type Provider<T> = (props: {
     value?: T | undefined;
-    children?: ReactElement | undefined;
-}) => ReactElement | undefined;
+    children?: VDomElement | undefined;
+}) => VDomElement | undefined;
 
 export type Consumer<T> = (props: {
-    children?: (context: T | undefined) => ReactElement | undefined;
-}) => ReactElement | undefined;
+    children?: (context: T | undefined) => VDomElement | undefined;
+}) => VDomElement | undefined;
 
-interface ReactContext<T> {
+interface ContextModel<T> {
     Provider: Provider<T>;
     Consumer: Consumer<T>;
     value: T | undefined;
@@ -44,12 +46,12 @@ interface ReactContext<T> {
 type LazyComponent<T> = (props: T) => Promise<{ default: () => JSX.Element }>;
 
 export type {
-    ReactElement,
+    VDomElement,
     MutableRefObject,
     RefObject,
     Props,
     FC,
     RefForwardingComponent,
-    ReactContext,
+    ContextModel,
     LazyComponent,
 };

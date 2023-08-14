@@ -5,7 +5,7 @@ import { TestStackSize } from '../shared/testStackSize';
 import {
     getContainerFiber,
     hasContainerFiber,
-} from '@/jsx/reconciler/FiberReflection.ts';
+} from '../reconciler/FiberReflection.ts';
 
 declare interface IdleDeadline {
     readonly didTimeout: boolean;

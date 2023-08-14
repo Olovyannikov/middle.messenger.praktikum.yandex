@@ -14,7 +14,7 @@ const isTextFiber = (fiber: Fiber): fiber is Fiber => fiber.$$typeof === Text;
 const isFragmentFiber = (fiber: Fiber): fiber is Fiber =>
     fiber.$$typeof === Fragment;
 
-const isHostParentFiber = (fiber: Fiber): boolean =>
+const isHostParentFiber = (fiber: Fiber | undefined): boolean =>
     isHostFiber(fiber) || isRootFiber(fiber);
 
 const isHostChildFiber = (fiber: Fiber): boolean =>

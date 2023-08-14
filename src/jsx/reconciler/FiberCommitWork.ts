@@ -21,12 +21,12 @@ import {
     isTextFiber,
     isHostFiber,
     isFragmentFiber,
-} from '@/jsx/is/Is.ts';
+} from '../is/Is.ts';
 import { TestStackSize, resetStack } from '../shared/testStackSize';
 import {
     setContainerFiber,
     setInternalFiber,
-} from '@/jsx/reconciler/FiberReflection.ts';
+} from '../reconciler/FiberReflection.ts';
 
 function createStateNode(hostFiber: Fiber) {
     const { tag, props } = hostFiber;

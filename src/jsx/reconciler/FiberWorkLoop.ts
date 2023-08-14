@@ -12,10 +12,10 @@ import {
     isTextFiber,
     isHostFiber,
     isFragmentFiber,
-} from '@/jsx/is/Is.ts';
+} from '../is/Is.ts';
 import { resetIndex } from './FiberStack.ts';
 import { TestStackSize } from '../shared/testStackSize';
-import { getInternalFiber } from '@/jsx/reconciler/FiberReflection.ts';
+import { getInternalFiber } from '../reconciler/FiberReflection.ts';
 
 let workInProgress: Fiber | undefined = undefined;
 let pendingCommit: Fiber | undefined = undefined;

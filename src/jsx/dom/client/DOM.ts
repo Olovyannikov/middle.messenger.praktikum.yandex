@@ -1,12 +1,12 @@
 import * as HostConfig from './DOMHostConfig.ts';
-import FiberReconciler from '@/jsx/reconciler/FiberReconciler.ts';
+import FiberReconciler from '../../reconciler/FiberReconciler.ts';
 
 const renderer = FiberReconciler(HostConfig);
 
 export const render = (
     component: JSX.Element,
     container: HTMLElement,
-    callback?: () => void,
+    callback?: () => void
 ) => {
     if (container === null) {
         throw new Error('Target container is not a DOM element.');
@@ -21,7 +21,7 @@ export const render = (
 };
 
 const DOM = {
-    render,
+    render
 };
 
 export { HostConfig };

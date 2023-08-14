@@ -3,7 +3,7 @@ import { scheduleWork } from './FiberReconciler.ts';
 import { getIndex } from './FiberStack.ts';
 import { is } from '../shared/objectIs';
 import { Effect, MemoizedState } from '../shared/Types.ts';
-import { MutableRefObject, ReactContext } from '../shared/ElementType.ts';
+import { MutableRefObject, ContextModel } from '../shared/ElementType.ts';
 
 const areHookInputsEqual = (
     nextDeps: readonly any[],
@@ -123,7 +123,7 @@ const useEffect = (create: Effect, deps?: readonly any[]) => {
     }
 };
 
-const useContext = <T>(context: ReactContext<T>): T => {
+const useContext = <T>(context: ContextModel<T>): T => {
     if (context.value === undefined) {
         throw new Error(
             'Context value is undefined. Make sure the context is properly initialized.',

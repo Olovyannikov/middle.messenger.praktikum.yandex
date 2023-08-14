@@ -19,12 +19,12 @@ export type IntrinsicAttributes<T extends HTMLElement> = Partial<
     HTMLAttributes<T>
 >;
 export type CSSProperties = Partial<CSSStyleDeclaration>;
-export type Element = ElementType.ReactElement;
+export type Element = ElementType.VDomElement;
 
 // context type
 export type Consumer<T> = ElementType.Consumer<T>;
 export type Provider<T> = ElementType.Provider<T>;
-export type ReactContext<T> = ElementType.ReactContext<T>;
+export type Context<T> = ElementType.ContextModel<T>;
 
 
 

@@ -1,5 +1,5 @@
 import { Router } from './router';
-import { VDom } from '@/jsx/index.ts';
+import { VDom } from '@/jsx';
 
 export const App = () => {
     return <Router />;

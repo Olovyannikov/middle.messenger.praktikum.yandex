@@ -1,7 +1,7 @@
 import { Create, Delete, Fiber, Place, Update } from '../shared/Types.ts';
-import { isSameTag, isHookFiber } from '@/jsx/is/Is.ts';
+import { isSameTag, isHookFiber } from '../is/Is.ts';
 import { TestStackSize } from '../shared/testStackSize';
-import { Children } from '@/jsx/core/Children.ts';
+import { Children } from '../core/Children.ts';
 
 function reconcileChildren(fiber: Fiber, children: Fiber[]) {
     if (isHookFiber(fiber)) {

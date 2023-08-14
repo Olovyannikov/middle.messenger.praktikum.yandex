@@ -1,4 +1,4 @@
-import VDom from '@/jsx/core/VDom.ts';
+import { VDom } from '@/jsx';
 import { Link } from '@/shared/ui/Link';
 import { Typography } from '@/shared/ui/Typography';
 
@@ -7,7 +7,12 @@ import s from './styles.module.scss';
 
 export default function IndexPage() {
     return (
-        <section className={s.links}>
+        <section
+            onClick={() => {
+                console.log('asd');
+            }}
+            className={s.links}
+        >
             {/*<Typography className={s.title} variant="h5">*/}
             Список ссылок:
             {/*</Typography>*/}

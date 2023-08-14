@@ -27,7 +27,7 @@
     "noFallthroughCasesInSwitch": true,
     "paths": {
       "@/jsx": [
-        "./src/jsx-runtime/index.ts"
+        "./src/jsx/index.ts"
       ],
       "@/*": [
         "./src/*"

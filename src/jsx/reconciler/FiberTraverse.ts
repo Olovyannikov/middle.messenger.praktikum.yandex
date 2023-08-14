@@ -1,5 +1,5 @@
 import { Fiber, Place } from '../shared/Types.ts';
-import { isHostParentFiber, isHostChildFiber } from '@/jsx/is/Is.ts';
+import { isHostParentFiber, isHostChildFiber } from '../is/Is.ts';
 import { TestStackSize } from '../shared/testStackSize';
 
 function getHostSiblingFiber(fiber: Fiber): Fiber | undefined {
