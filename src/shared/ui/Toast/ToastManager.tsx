@@ -1,6 +1,7 @@
-import { VDom } from '@/jsx';
 import { Toast, ToastProps } from './Toast';
 import s from './styles.module.scss';
+import React from '@/jsx/core/VDom.ts';
+import DOM from '@/jsx/dom/client/DOM.ts';
 
 interface ToastOptions {
     id?: string;
@@ -42,7 +43,7 @@ export class ToastManager {
             <Toast key={toastProps.id} {...toastProps} />
         ));
         toastsList.forEach((toast) => {
-            VDom.render(toast, this.containerRef);
+            DOM.render(toast, this.containerRef);
         });
     }
 }

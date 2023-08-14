@@ -42,7 +42,7 @@
       "error",
       "always"
     ],
-    "@typescript-eslint/no-use-before-define": "error",
+    "@typescript-eslint/no-use-before-define": "off",
     "indent": [
       "error",
       4
