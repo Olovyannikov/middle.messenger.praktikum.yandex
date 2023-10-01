@@ -1,15 +1,12 @@
-import { Axios, AxiosRequestConfig } from '@/shared/lib/axios.ts';
+import { Axios } from '@/shared/lib/axios.ts';
 
-const BASE_URL = 'https://ya-praktikum.tech/api/v2';
+export const BASE_URL = 'https://ya-praktikum.tech/api/v2';
+export const WEBSOCKET_URL = 'wss://ya-praktikum.tech/ws';
 
-const defaultConfig: AxiosRequestConfig<Axios['defaultConfig']> = {
+export const axios = new Axios({
     baseURL: BASE_URL,
-    url: '',
+    withCredentials: true,
     headers: {
         'Content-Type': 'application/json',
     },
-    method: 'GET',
-    withCredentials: true,
-};
-
-export const axios = new Axios(defaultConfig);
+});

@@ -1,0 +1,22 @@
+.spinner {
+  display: inline-block;
+  border: 4px solid currentcolor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation-name: rotate-forever;
+  animation-duration: 0.75s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes rotate-forever {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

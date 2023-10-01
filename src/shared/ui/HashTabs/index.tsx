@@ -1,4 +1,4 @@
-import { VDom } from '@/jsx';
+import { VDom } from '../../../jsx2';
 import { Button } from '@/shared/ui/Button';
 import { useRouter } from '@/shared/hooks/useRouter.ts';
 

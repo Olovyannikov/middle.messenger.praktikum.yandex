@@ -69,9 +69,3 @@ declare namespace JSX {
         (properties: T, children?: Node[]): Element;
     }
 }
-
-type AllElementTagNameMap = HTMLElementTagNameMap & SVGElementTagNameMap;
-
-type RecursivePartial<T> = {
-    [P in keyof T]?: RecursivePartial<T[P]>;
-};

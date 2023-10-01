@@ -1,10 +1,10 @@
 import { VDom } from '@/jsx';
+import { App } from './app/App';
 
-import { App } from './app/App.tsx';
+export const app = document.getElementById('app') as HTMLElement;
 
-import './app/assets/styles/styles.scss';
+export const renderView = () => {
+    VDom.render(<App />, app);
+};
 
-const app = document.querySelector<HTMLDivElement>('#app') as HTMLElement;
-
-// ручка для перерендера приложения (например, смена состояний (flux-state) или роутинга)
-VDom.render(<App />, app);
+renderView();

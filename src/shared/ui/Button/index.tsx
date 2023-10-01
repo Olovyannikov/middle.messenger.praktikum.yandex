@@ -1,7 +1,8 @@
 import { VDom } from '@/jsx';
-import { Link } from '@/shared/ui/Link';
 import { classNames as clsx } from '@/shared/lib/clsx.ts';
 
+import { Spin } from '@/shared/ui';
+import { Link } from '@/app/router/components/Link.tsx';
 import s from './styles.module.scss';
 
 type ButtonSize = 'small' | 'medium' | 'large';
@@ -9,7 +10,6 @@ type ButtonType = 'submit' | 'button';
 type ButtonVariant = 'primary' | 'secondary' | 'text' | 'info';
 
 interface ButtonProps {
-    id?: string | number;
     href?: string;
     onClick?: () => void;
     children?: JSX.Element;
@@ -20,12 +20,12 @@ interface ButtonProps {
     className?: string;
     hash?: boolean;
     rounded?: boolean;
+    loading?: boolean;
 }
 
 export const Button = ({
     children,
-    disabled,
-    onClick,
+    loading,
     className = '',
     href,
     hash,
@@ -47,25 +47,15 @@ export const Button = ({
 
     if (href && !!href.length) {
         return (
-            <Link
-                asRoute={hash}
-                className={classNames}
-                disabled={disabled}
-                href={href}
-                {...props}
-            >
+            <Link className={classNames} to={href} {...props}>
                 {children}
             </Link>
         );
     }
 
     return (
-        <button
-            type={type}
-            className={classNames}
-            {...(onClick && { onClick })}
-            {...props}
-        >
+        <button type={type} className={classNames} {...props}>
+            {loading ? <Spin className={s.spinner} /> : ''}
             {children}
         </button>
     );

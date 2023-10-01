@@ -1,30 +1,27 @@
-import { VDom } from '@/jsx';
+import { VDom } from '../../../jsx';
 import { classNames } from '@/shared/lib/clsx.ts';
 
 import s from './styles.module.scss';
+import HtmlInputTag = JSX.HtmlInputTag;
 
-export interface InputProps {
-    title?: string;
+export interface InputProps extends HtmlInputTag {
+    label?: string;
     full?: boolean;
     message?: string;
-    errors?: boolean;
-    type?: 'text' | 'password' | 'email';
-    className?: string;
-    placeholder?: string;
+    error?: string;
+    value?: string;
     size?: 'small' | 'medium' | 'large';
-    name?: string;
-    required?: boolean;
 }
 
 export const Input = ({
-    message,
-    errors,
+    error = '',
     type = 'text',
     full = false,
     className = '',
     placeholder = ' ',
-    title,
+    label,
     size = 'medium',
+    value = '',
     name,
     required = false,
     ...props
@@ -35,7 +32,7 @@ export const Input = ({
                 s.label,
                 {
                     [s.full]: !!full,
-                    [s.error]: !!errors,
+                    [s.error]: !!error,
                     [s[size]]: size,
                 },
                 [className],
@@ -43,15 +40,18 @@ export const Input = ({
         >
             <input
                 className={classNames(s.input, {
-                    [s.error]: !!errors,
+                    [s.error]: !!error,
                 })}
                 required={required}
                 type={type}
                 placeholder={placeholder}
                 name={name}
+                value={value}
                 {...props}
             />
-            <span className={s.title}>{title}</span>
+            <span className={s.title}>{label}</span>
+
+            {error && <span className={s.error}>{error}</span>}
         </label>
     );
 };

@@ -105,7 +105,7 @@ label.error {
   margin-bottom: var(--size-xl);
 }
 
-.label [data-error] {
+.label span.error {
   position: absolute;
   left: var(--size-xl);
   bottom: calc(-1 * var(--size-lg));

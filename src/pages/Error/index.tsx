@@ -1,6 +1,6 @@
 import { VDom } from '@/jsx';
-import s from './styles.module.scss';
 import { Button } from '@/shared/ui/Button';
+import s from './styles.module.scss';
 
 interface ErrorPageProps {
     status: number | string;

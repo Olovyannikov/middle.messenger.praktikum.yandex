@@ -48,9 +48,12 @@
 .fields {
   display: grid;
   margin-bottom: var(--size-lg);
-  gap: var(--size-sm);
+  gap: var(--size-lg);
 }
 
-.save {
-  margin-left: auto;
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--size-md);
 }

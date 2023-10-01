@@ -2,6 +2,7 @@
   "compilerOptions": {
     "jsx": "react",
     "jsxFactory": "VDom.createElement",
+    "jsxFragmentFactory": "VDom.createFragmentElement",
     "target": "esnext",
     "useDefineForClassFields": true,
     "module": "ESNext",
@@ -15,7 +16,7 @@
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
-    "isolatedModules": true,
+    "isolatedModules": false,
     "noEmit": true,
     "sourceMap": true,
     "strictNullChecks": true,

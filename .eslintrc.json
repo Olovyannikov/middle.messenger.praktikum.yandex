@@ -34,6 +34,7 @@
     "import/no-duplicates": "off",
     "space-before-function-paren": "off",
     "no-underscore-dangle": "warn",
+    "no-constant-condition": "warn",
     "object-curly-spacing": [
       "warn",
       "always"

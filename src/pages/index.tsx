@@ -1,30 +1,34 @@
-import { VDom } from '@/jsx';
-import { Link } from '@/shared/ui/Link';
-import { Typography } from '@/shared/ui/Typography';
+import { VDom, useEffect } from '@/jsx';
 
-import { linksList } from './config.tsx';
+import { RootLayout } from '@/layouts';
+import { Login } from '@/features/Login/ui';
+import { Spin, Container } from '@/shared/ui';
+
+import { useAuth } from '@/shared/hooks';
+
 import s from './styles.module.scss';
 
 export default function IndexPage() {
+    const { isLoading, isAuth } = useAuth();
+
+    if (isLoading) {
+        return <Spin className={s.spinner} />;
+    }
+
+    useEffect(() => {
+        if (isAuth) {
+            window.history.pushState({}, '', '/messenger');
+            window.location.pathname = '/messenger';
+        }
+    }, [isAuth]);
+
     return (
-        <section
-            onClick={() => {
-                console.log('asd');
-            }}
-            className={s.links}
-        >
-            {/*<Typography className={s.title} variant="h5">*/}
-            Список ссылок:
-            {/*</Typography>*/}
-            <ul>
-                {/*    {linksList.map((link) => (*/}
-                {/*        <li key={link.id}>*/}
-                {/*            <Link className={s.link} href={link.route}>*/}
-                {/*                <Typography>{link.children}</Typography>*/}
-                {/*            </Link>*/}
-                {/*        </li>*/}
-                {/*    ))}*/}
-            </ul>
-        </section>
+        <RootLayout>
+            <section className={s.page}>
+                <Container>
+                    <Login />
+                </Container>
+            </section>
+        </RootLayout>
     );
 }
