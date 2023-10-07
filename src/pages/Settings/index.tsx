@@ -1,16 +1,14 @@
-import { VDom, useEffect } from '@/jsx';
+import { VDom } from '@/jsx';
 
-import { Button, Input, Spin } from '@/shared/ui';
+import { Button, Input, Spin, Toast } from '@/shared/ui';
 
-import { useChangeProfile, useForm, useAuth } from '@/shared/hooks';
+import { useChangeProfile, useAuth } from '@/shared/hooks';
 import { inputmask } from '@/shared/lib/inputmask.ts';
-
-import { AuthService } from '@/services/Auth/Auth.service.ts';
 
 import s from './styles.module.scss';
 
 export default function SettingsPage() {
-    const { user, isAuth, isLoading: isUserLoading } = useAuth();
+    const { isAuth, isLoading: isUserLoading } = useAuth();
 
     if (isUserLoading) {
         return <Spin />;
@@ -21,29 +19,17 @@ export default function SettingsPage() {
     }
 
     const {
-        value,
-        onValueChangeHandler,
-        onBlurHandler,
+        user,
+        isLoading,
+        onSubmit,
+        logout,
+        onAvatarChangeHandler,
+        handleChange,
+        handleBlur,
         errors,
-        setDefaultValue,
-    } = useForm();
-
-    useEffect(() => {
-        setDefaultValue('first_name', user?.first_name);
-        setDefaultValue('second_name', user?.second_name);
-        setDefaultValue('display_name', user?.display_name ?? '');
-        setDefaultValue('login', user?.login);
-        setDefaultValue('email', user?.email ?? '');
-        setDefaultValue('phone', user?.phone ?? '');
-    }, [user]);
-
-    const { isLoading, onSubmit, onAvatarChangeHandler } = useChangeProfile();
-
-    const logout = () => {
-        AuthService.logout().then(() => {
-            window.location.pathname = '/';
-        });
-    };
+        data,
+        toasts,
+    } = useChangeProfile();
 
     return (
         <section className={s.settings}>
@@ -79,49 +65,49 @@ export default function SettingsPage() {
                         <Input
                             name="first_name"
                             label="Имя"
-                            value={value.first_name}
-                            onInput={onValueChangeHandler}
-                            onBlur={onBlurHandler}
+                            value={data.first_name}
+                            onInput={handleChange('first_name')}
+                            onBlur={handleBlur('first_name')}
                         />
                         <Input
                             name="second_name"
                             label="Фамилия"
                             error={errors['second_name']}
-                            value={value.second_name}
-                            onInput={onValueChangeHandler}
-                            onBlur={onBlurHandler}
+                            value={data.second_name}
+                            onInput={handleChange('second_name')}
+                            onBlur={handleBlur('second_name')}
                         />
                         <Input
                             name="display_name"
                             label="Имя в чате"
                             error={errors['display_name']}
-                            value={value.display_name}
-                            onInput={onValueChangeHandler}
-                            onBlur={onBlurHandler}
+                            value={data.display_name}
+                            onInput={handleChange('display_name')}
+                            onBlur={handleBlur('display_name')}
                         />
                         <Input
                             name="login"
                             label="Логин"
                             error={errors['login']}
-                            value={value.login}
-                            onInput={onValueChangeHandler}
-                            onBlur={onBlurHandler}
+                            value={data.login}
+                            onInput={handleChange('login')}
+                            onBlur={handleBlur('login')}
                         />
                         <Input
                             name="email"
                             label="Почта"
                             error={errors['email']}
-                            value={value.email}
-                            onInput={onValueChangeHandler}
-                            onBlur={onBlurHandler}
+                            value={data.email}
+                            onInput={handleChange('email')}
+                            onBlur={handleBlur('email')}
                         />
                         <Input
                             name="phone"
                             label="Телефон"
                             error={errors['phone']}
-                            value={value.phone}
-                            onInput={onValueChangeHandler}
-                            onBlur={onBlurHandler}
+                            value={data.phone}
+                            onInput={handleChange('phone')}
+                            onBlur={handleBlur('phone')}
                             onFocus={() => inputmask('[name="phone"]')}
                         />
                     </div>
@@ -146,6 +132,7 @@ export default function SettingsPage() {
                     </div>
                 </form>
             </main>
+            <Toast toasts={toasts} />
         </section>
     );
 }

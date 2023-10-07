@@ -8,20 +8,20 @@ interface CreateNewChatProps {
 }
 
 export const CreateNewChat = ({ onClose }: CreateNewChatProps) => {
-    const { onChange, onBlur, value, isLoading, onSubmit, error } =
+    const { errors, handleBlur, handleChange, handleSubmit, isLoading, data } =
         useCreateNewChat({
             onClose,
         });
 
     return (
-        <form className={s.form} onSubmit={onSubmit}>
+        <form className={s.form} onSubmit={handleSubmit}>
             <Input
                 name="title"
-                value={value}
-                onBlur={onBlur}
+                value={data.title}
+                onBlur={handleBlur('title')}
                 label="Имя чата"
-                onInput={onChange}
-                error={error['title']}
+                onInput={handleChange('title')}
+                error={errors['title']}
             />
             <Button loading={isLoading} type="submit">
                 Подтвердить

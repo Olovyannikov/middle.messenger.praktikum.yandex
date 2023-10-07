@@ -23,6 +23,12 @@ const updateNode = (node: Node, prevProps: any, newProps: any) => {
                 if (node instanceof HTMLScriptElement) {
                     node.setAttribute(property, newProps[property]);
                 } else {
+                    if (property.startsWith('data')) {
+                        (node as any).setAttribute(
+                            property,
+                            newProps[property],
+                        );
+                    }
                     (node as any)[property] = newProps[property];
                 }
             });

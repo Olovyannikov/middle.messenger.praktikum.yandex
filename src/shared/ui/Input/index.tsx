@@ -1,4 +1,4 @@
-import { VDom } from '../../../jsx';
+import { VDom } from '@/jsx';
 import { classNames } from '@/shared/lib/clsx.ts';
 
 import s from './styles.module.scss';

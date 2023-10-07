@@ -4,7 +4,7 @@ import { classNames } from '@/shared/lib/clsx.ts';
 export interface LinkProps {
     to: string;
     className?: string;
-    children?: any;
+    children?: JSX.Element;
 }
 
 export const Link = ({ to, children, className = '' }: LinkProps) => {

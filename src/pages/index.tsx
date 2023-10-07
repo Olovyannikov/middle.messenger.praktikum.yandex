@@ -11,16 +11,16 @@ import s from './styles.module.scss';
 export default function IndexPage() {
     const { isLoading, isAuth } = useAuth();
 
-    if (isLoading) {
-        return <Spin className={s.spinner} />;
-    }
-
     useEffect(() => {
         if (isAuth) {
             window.history.pushState({}, '', '/messenger');
             window.location.pathname = '/messenger';
         }
     }, [isAuth]);
+
+    if (isLoading || isAuth) {
+        return <Spin className={s.spinner} />;
+    }
 
     return (
         <RootLayout>

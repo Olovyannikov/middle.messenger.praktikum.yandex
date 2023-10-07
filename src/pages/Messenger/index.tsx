@@ -3,6 +3,7 @@ import { RootLayout } from '@/layouts';
 
 import { useAuth } from '@/shared/hooks/useAuth.ts';
 import { Spin } from '@/shared/ui/Spin';
+import { AppChat, AppSidebar } from '@/entities';
 import s from './styles.module.scss';
 
 export default function MessengerPage() {
@@ -18,7 +19,10 @@ export default function MessengerPage() {
 
     return (
         <RootLayout>
-            <section className={s.chat}>chat page</section>
+            <section className={s.chat}>
+                <AppSidebar />
+                <AppChat />
+            </section>
         </RootLayout>
     );
 }

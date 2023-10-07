@@ -1,0 +1,31 @@
+.avatar {
+  --avatar-bg-color: var(--primary);
+  --avatar-text-color: var(--off-white);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 50%;
+  color: var(--avatar-text-color);
+  background: var(--avatar-bg-color);
+  user-select: none;
+}
+
+.avatar.rounded {
+  border-radius: var(--size-xs);
+}
+
+.avatar.square {
+  border-radius: 0;
+}
+
+.avatar.small {
+  width: 24px;
+  height: 24px;
+}
+
+.avatar.medium {
+  width: 40px;
+  height: 40px;
+}

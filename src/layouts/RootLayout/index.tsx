@@ -1,4 +1,4 @@
-import { VDom } from '../../jsx';
+import { VDom } from '@/jsx';
 
 interface RootLayoutProps {
     children?: JSX.Element;

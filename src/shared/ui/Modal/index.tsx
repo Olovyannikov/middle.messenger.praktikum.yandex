@@ -1,9 +1,10 @@
 import { useEffect, VDom } from '@/jsx';
 import { classNames } from '@/shared/lib/clsx.ts';
+import type { StateSetter } from '@/jsx/hooks';
 import s from './styles.module.scss';
 
 interface ModalProps {
-    open: boolean;
+    open: boolean | StateSetter<boolean>;
     title?: string;
     showClose?: boolean;
     children?: JSX.Element;
@@ -37,7 +38,7 @@ export const Modal = ({
 
     return (
         <div>
-            <div className={s.open} />
+            <div role="presentation" className={s.open} onClick={onClose} />
             <div className={classNames(s.modal, {}, [className])}>
                 <button
                     hidden={!showClose}

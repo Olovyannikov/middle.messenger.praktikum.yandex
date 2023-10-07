@@ -24,7 +24,7 @@ export const useLogin = () => {
                 setIsLoading(true);
                 try {
                     await AuthService.signin(data);
-                    window.location.replace('/chats');
+                    window.location.replace('/messenger');
                 } catch (e: unknown) {
                     if (isRMError(e)) {
                         showToast({

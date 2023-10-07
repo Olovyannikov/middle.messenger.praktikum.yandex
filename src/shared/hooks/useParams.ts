@@ -20,9 +20,8 @@ export const useParams = () => {
     };
 
     useEffect(() => {
-        // setParams(getParams());
-        setCurrentParam(getParams().chatId);
-    }, [getParams().chatId]);
+        getParams();
+    }, [search]);
 
     return {
         getParams,

@@ -2,43 +2,63 @@ import { useState } from '@/jsx/hooks/useState.ts';
 import { UserService } from '@/services/User/User.service.ts';
 import { UserModel } from '@/shared/types/models/User';
 import { AuthService } from '@/services/Auth/Auth.service.ts';
-import { FormState } from '@/shared/types/Form.ts';
 import { uploadFile } from '@/shared/lib/uploadFile.ts';
 import { useUserStore } from '@/store/User';
+import { useForm } from '@/shared/hooks/useForm.ts';
+import { isRMError } from '@/shared/types/type-guards/isRMError.ts';
+import { useToast } from '@/shared/ui/Toast/useToast.ts';
+import { ValidatorEmail, ValidatorRequired } from '@/shared/schemas';
 
 export const useChangeProfile = () => {
     const [isLoading, setIsLoading] = useState(false);
-    const [_, setUser] = useUserStore();
+    const [user, setUser] = useUserStore();
+    const { toasts, showToast } = useToast();
 
-    const onSubmit = async (e: SubmitEvent) => {
-        e.preventDefault();
-
-        const form = e.target;
-        const formData = new FormData(form as HTMLFormElement);
-        const formState: Record<string, FormState> = {};
-        const preparedData: UserModel = {} as UserModel;
-
-        for (const [name, value] of formData.entries()) {
-            if (typeof value === 'string') {
-                formState[name] = { value };
-            }
-        }
-
-        Object.keys(formState).forEach((field) => {
-            preparedData[field as keyof UserModel] = formState[field].value;
-        });
-
-        await UserService.changeUserData(preparedData)
-            .then(() => {
+    const { data, errors, handleBlur, handleChange, handleSubmit } =
+        useForm<UserModel>({
+            initialValues: {
+                first_name: user?.first_name,
+                second_name: user?.second_name,
+                display_name: user?.display_name,
+                login: user?.login,
+                email: user?.email,
+                phone: user?.phone,
+            },
+            validators: {
+                first_name: ValidatorRequired,
+                second_name: ValidatorRequired,
+                login: ValidatorRequired,
+                email: ValidatorEmail,
+                phone: ValidatorRequired,
+            },
+            onSubmit: async () => {
+                console.log(data);
                 setIsLoading(true);
-            })
-            .finally(() => {
-                setIsLoading(false);
-                AuthService.getUser().then((res) => {
-                    setUser.set(res.data);
-                });
-            });
-    };
+                try {
+                    const newUserData = await UserService.changeUserData(data);
+                    if (newUserData.status === 200) {
+                        setUser.update(data);
+                        showToast({
+                            id: Math.random() * 100,
+                            title: 'Успех!',
+                            description: 'Данные успешно обновлены',
+                            type: 'success',
+                        });
+                    }
+                } catch (e: unknown) {
+                    if (isRMError(e)) {
+                        showToast({
+                            id: Math.random() * 100,
+                            title: 'Ошибка!',
+                            description: e?.reason ?? 'Произошла ошибка',
+                            type: 'error',
+                        });
+                    }
+                } finally {
+                    setIsLoading(false);
+                }
+            },
+        });
 
     const onAvatarChangeHandler = async (e: Event) => {
         e.preventDefault();
@@ -56,9 +76,22 @@ export const useChangeProfile = () => {
         }
     };
 
+    const logout = () => {
+        AuthService.logout().then(() => {
+            window.location.pathname = '/';
+        });
+    };
+
     return {
         isLoading,
-        onSubmit,
+        onSubmit: handleSubmit,
         onAvatarChangeHandler,
+        logout,
+        errors,
+        handleChange,
+        handleBlur,
+        data,
+        toasts,
+        user,
     };
 };

@@ -3,7 +3,18 @@ import { ChatModel } from '@/shared/types/models/Chat';
 
 const initialStore: ChatModel[] = [];
 
-export const [useChatsStore, setChats] = createStore<ChatModel[]>(initialStore);
-export const [useChatToken, setChatToken] = createStore<{ token: string }>({
-    token: '',
-});
+export const {
+    use: useChatsStore,
+    update: updateChatStore,
+    set: setChats
+} = createStore<ChatModel[]>(initialStore);
+
+export const {
+    use: useActiveChat,
+    set: setActiveChat,
+    update: updateActiveChat
+} = createStore<string | number | null>(null);
+
+// export const [useChatToken, setChatToken] = createStore<{ token: string }>({
+//     token: '',
+// });

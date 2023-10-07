@@ -17,9 +17,9 @@ export const Registration = () => {
 
     return (
         <>
-            <section>
-                <Container>
-                    <form className={s.registration} onSubmit={handleSubmit}>
+            <section className={s.registration}>
+                <Container className={s.container}>
+                    <form className={s.form} onSubmit={handleSubmit}>
                         <Typography className={s.descr}>
                             На данный e-mail мы отправим какой-нибудь смешной
                             мем. Когда-нибудь мы будем отправлять полезные

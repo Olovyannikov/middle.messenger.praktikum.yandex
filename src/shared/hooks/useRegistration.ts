@@ -41,7 +41,7 @@ export const useRegistration = () => {
             onSubmit: async () => {
                 await AuthService.signup(data)
                     .then(() => {
-                        window.location.replace('/chats');
+                        window.location.replace('/messenger');
                     })
                     .catch((e) => {
                         if (isRMError(e)) {

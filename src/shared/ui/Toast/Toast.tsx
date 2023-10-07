@@ -5,10 +5,10 @@ import s from './styles.module.scss';
 
 interface ToastProps {
     toasts: ToastItem[];
-    position: 'bottom-right';
+    position?: 'bottom-right';
 }
 
-export const Toast = ({ toasts, position }: ToastProps) => {
+export const Toast = ({ toasts, position = 'bottom-right' }: ToastProps) => {
     return (
         <div className={classNames(s.container, {}, [s[position]])}>
             {toasts.map((toast, i) => (

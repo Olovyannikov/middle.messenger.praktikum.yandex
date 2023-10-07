@@ -1,9 +1,9 @@
-import {
+import type {
     AddUserToChatRequest,
     GetChatsRequest,
 } from '@/services/Chats/Chats.dto.ts';
+import type { ChatModel } from '@/shared/types/models/Chat';
 import { axios } from '@/services/config.ts';
-import { ChatModel } from '@/shared/types/models/Chat';
 
 class Chats {
     public getChats(params: GetChatsRequest) {
