@@ -35,6 +35,18 @@ class Chats {
         return await axios.post<string>('/chats', { title });
     }
 
+    public async deleteChat(chatId: string | number) {
+        return await axios.delete<string>('/chats', { chatId });
+    }
+
+    public async connectToChat(chatId: string | number) {
+        return await axios.post<{ token: string }>(`/chats/token/${chatId}`);
+    }
+
+    public async getAllMessages(chatId: string | number) {
+        return await axios.post();
+    }
+
     public async addUserToChat(body: AddUserToChatRequest) {
         return await axios.put<AddUserToChatRequest>('/chats/users', body);
     }

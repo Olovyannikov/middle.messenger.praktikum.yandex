@@ -1,11 +1,16 @@
 import { useEffect, useState, VDom } from '@/jsx';
-import type { ChatModel } from '@/shared/types/models/Chat';
-import { Avatar, Typography } from '@/shared/ui';
+
 import { setActiveChat, useActiveChat } from '@/store/Chats';
-import { useParams } from '@/shared/hooks';
+
+import { Avatar, Typography } from '@/shared/ui';
+
 import { classNames } from '@/shared/lib/clsx.ts';
-import { useLocation } from '@/shared/hooks/useLocation.ts';
+import { useParams, useLocation } from '@/shared/hooks';
+
+import type { ChatModel } from '@/shared/types/models/Chat';
+
 import s from './ChatsListItem.module.scss';
+import { getNormalDate } from '@/shared/lib/getNormalDate.ts';
 
 interface ChatsListItemProps {
     key: string | number;
@@ -34,6 +39,8 @@ export const ChatsListItem = ({ chat }: ChatsListItemProps) => {
     const avatarTitle =
         chat?.title.split(' ')[0][0] + (chat?.title.split(' ')[1]?.[0] ?? '');
 
+    const chatLastMessageDate = new Date(chat?.last_message?.time);
+
     return (
         <li
             className={classNames(s.item, {
@@ -55,7 +62,7 @@ export const ChatsListItem = ({ chat }: ChatsListItemProps) => {
                     <Typography variant="subtitle2">{chat?.title}</Typography>
                     {chat?.last_message ? (
                         <Typography variant="caption" className={s.lastMessage}>
-                            {chat?.last_message?.user}:{' '}
+                            {chat?.last_message?.user?.display_name}:{' '}
                             {chat?.last_message?.content}
                         </Typography>
                     ) : (
@@ -70,7 +77,9 @@ export const ChatsListItem = ({ chat }: ChatsListItemProps) => {
                 </article>
                 <span className={s.info}>
                     {chat?.last_message?.time && (
-                        <time datetime={chat?.last_message?.time}>99:99</time>
+                        <time dateTime={chat?.last_message?.time}>
+                            {getNormalDate(chatLastMessageDate).messageTime}
+                        </time>
                     )}
                     {chat?.unread_count ? (
                         <span className={s.count}>{chat?.unread_count}</span>

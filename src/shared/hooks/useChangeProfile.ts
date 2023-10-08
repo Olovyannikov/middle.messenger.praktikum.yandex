@@ -32,7 +32,6 @@ export const useChangeProfile = () => {
                 phone: ValidatorRequired,
             },
             onSubmit: async () => {
-                console.log(data);
                 setIsLoading(true);
                 try {
                     const newUserData = await UserService.changeUserData(data);

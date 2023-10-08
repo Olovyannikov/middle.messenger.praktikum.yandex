@@ -6,15 +6,17 @@ const initialStore: ChatModel[] = [];
 export const {
     use: useChatsStore,
     update: updateChatStore,
-    set: setChats
+    set: setChats,
 } = createStore<ChatModel[]>(initialStore);
 
 export const {
     use: useActiveChat,
     set: setActiveChat,
-    update: updateActiveChat
+    update: updateActiveChat,
 } = createStore<string | number | null>(null);
 
-// export const [useChatToken, setChatToken] = createStore<{ token: string }>({
-//     token: '',
-// });
+export const {
+    use: useChatToken,
+    set: setChatToken,
+    update: updateChatToken,
+} = createStore<{ token: string }>({ token: '' });

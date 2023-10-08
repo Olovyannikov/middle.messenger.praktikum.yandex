@@ -7,3 +7,4 @@ export * from './useParams.ts';
 export * from './useRouter.ts';
 export * from './useClickOutside.ts';
 export * from './useInput.ts';
+export * from './useLocation.ts';

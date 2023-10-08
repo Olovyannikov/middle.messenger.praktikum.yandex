@@ -1,0 +1,17 @@
+.chat {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.empty {
+  display: grid;
+  place-content: center;
+  place-items: center;
+  width: 100%;
+
+  img {
+    width: 72px;
+    object-fit: contain;
+  }
+}

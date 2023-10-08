@@ -134,6 +134,6 @@ declare namespace JSX {
     }
 
     interface HtmlTimeTag extends HtmlTag {
-        datetime?: string | Date;
+        dateTime?: string | Date;
     }
 }

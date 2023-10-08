@@ -98,6 +98,14 @@ class Axios {
     ): Promise<AxiosResponse<T>> {
         return this.sendRequest('PUT', url, data, headers);
     }
+
+    delete<T>(
+        url: string,
+        data?: FormData | object,
+        headers: Record<string, string> = {},
+    ): Promise<AxiosResponse<T>> {
+        return this.sendRequest('DELETE', url, data, headers);
+    }
 }
 
 export { Axios };
