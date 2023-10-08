@@ -77,7 +77,7 @@ export const useChangeProfile = () => {
 
     const logout = () => {
         AuthService.logout().then(() => {
-            window.location.pathname = '/';
+            window.location.href = '/';
         });
     };
 

@@ -1,12 +1,15 @@
 import { VDom } from '@/jsx';
 import { Button, Input, Typography } from '@/shared/ui';
 import s from './ChatsHeader.module.scss';
+import { useUserStore } from '@/store/User';
 
 interface ChatsHeaderProps {
     onOpenNewChatForm: () => void;
 }
 
 export const ChatsHeader = ({ onOpenNewChatForm }: ChatsHeaderProps) => {
+    const [user] = useUserStore();
+
     return (
         <header className={s.header}>
             <div className={s.top}>
@@ -24,7 +27,7 @@ export const ChatsHeader = ({ onOpenNewChatForm }: ChatsHeaderProps) => {
                     </Button>
                 </span>
                 <Typography className={s.title} variant="body1">
-                    Чаты
+                    Чаты ({user?.id})
                 </Typography>
                 <span data-flow="right" data-tooltip="Добавить новый чат">
                     <Button

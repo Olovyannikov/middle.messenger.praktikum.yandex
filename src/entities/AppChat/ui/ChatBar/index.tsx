@@ -1,62 +1,37 @@
-import { VDom } from '@/jsx';
-import { useUserStore } from '@/store/User';
-import { useActiveChat } from '@/store/Chats';
-import { ValidatorRequired } from '@/shared/schemas';
-import { classNames } from '@/shared/lib/clsx.ts';
-import { useForm } from '@/shared/hooks';
-import { useWSMessenger } from '@/shared/hooks/chats/useWSMessenger.ts';
+import { useEffect, VDom } from '@/jsx';
+import { SendMessage } from '@/features/SendMessage';
+import { useMessageStore } from '@/shared/hooks/chats/useWSMessenger.ts';
+import { ChatMessageItem } from '@/entities/ChatMessageItem';
 import s from './ChatBar.module.scss';
 
 export const ChatBar = () => {
-    const [user] = useUserStore();
-    const [activeChat] = useActiveChat();
-    const { data, handleChange, handleSubmit } = useForm<{ content: string }>({
-        validators: {
-            content: ValidatorRequired,
-        },
-        onSubmit: async () => {
-            await sendMessage(data.content);
-            await getOldMessages();
-        },
-        initialValues: {
-            content: '',
-        },
-    });
+    const [messages] = useMessageStore();
 
-    if (!activeChat) {
-        return null;
-    }
+    useEffect(() => {
+        const inputEl =
+            document.querySelector<HTMLInputElement>('[name="content"]');
+        const chatEl = document.querySelector<HTMLUListElement>('#chatList');
 
-    const { sendMessage, getOldMessages, messages, isLoading } = useWSMessenger(
-        activeChat?.toString(),
-    );
+        inputEl?.focus();
+        chatEl?.scrollTo({
+            behavior: 'smooth',
+            left: 0,
+            top: chatEl?.scrollHeight,
+        });
+    }, [messages]);
 
     return (
         <div className={s.chat}>
-            <ul className={s.chatList}>
-                {messages?.map((message) => (
-                    <li
-                        key={message?.id}
-                        className={classNames(s.message, {
-                            [s.me]: message?.user_id === user.id,
-                        })}
-                    >
-                        {message?.content}
-                    </li>
+            <ul className={s.chatList} id="chatList">
+                {messages?.map((message, i) => (
+                    <ChatMessageItem
+                        key={message.id}
+                        message={message}
+                        index={i}
+                    />
                 ))}
             </ul>
-
-            <form onSubmit={handleSubmit} className={s.chatbar}>
-                <input
-                    name="content"
-                    onInput={handleChange('content')}
-                    disabled={isLoading}
-                    placeholder="Сообщение"
-                />
-                <button type="submit" disabled={isLoading}>
-                    Send
-                </button>
-            </form>
+            <SendMessage />
         </div>
     );
 };

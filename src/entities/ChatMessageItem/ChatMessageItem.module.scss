@@ -1,0 +1,33 @@
+.avatar {
+  position: absolute;
+  right: -54px;
+  bottom: 0;
+}
+
+.message {
+  position: relative;
+  display: flex;
+  border-radius: var(--size-md);
+  padding: var(--size-sm);
+  background-color: var(--input);
+}
+
+.me {
+  background-color: #efefef;
+
+  .avatar {
+    left: -54px;
+    right: unset;
+  }
+}
+
+.content {
+  display: grid;
+  width: 100%;
+
+  time {
+    justify-self: end;
+    font-size: 13px;
+    color: var(--label);
+  }
+}

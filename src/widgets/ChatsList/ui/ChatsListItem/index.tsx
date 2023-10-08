@@ -11,6 +11,7 @@ import type { ChatModel } from '@/shared/types/models/Chat';
 
 import s from './ChatsListItem.module.scss';
 import { getNormalDate } from '@/shared/lib/getNormalDate.ts';
+import { avatarTitle } from '@/shared/lib/getAvatarTitle.ts';
 
 interface ChatsListItemProps {
     key: string | number;
@@ -36,9 +37,6 @@ export const ChatsListItem = ({ chat }: ChatsListItemProps) => {
         }
     }, []);
 
-    const avatarTitle =
-        chat?.title.split(' ')[0][0] + (chat?.title.split(' ')[1]?.[0] ?? '');
-
     const chatLastMessageDate = new Date(chat?.last_message?.time);
 
     return (
@@ -57,13 +55,14 @@ export const ChatsListItem = ({ chat }: ChatsListItemProps) => {
                     setActiveChat(chat?.id);
                 }}
             >
-                <Avatar src={chat?.avatar}>{avatarTitle}</Avatar>
+                <Avatar src={chat?.avatar}>{avatarTitle(chat?.title)}</Avatar>
                 <article>
                     <Typography variant="subtitle2">{chat?.title}</Typography>
                     {chat?.last_message ? (
                         <Typography variant="caption" className={s.lastMessage}>
-                            {chat?.last_message?.user?.display_name}:{' '}
-                            {chat?.last_message?.content}
+                            {chat?.last_message?.user?.display_name ??
+                                chat?.last_message?.user?.first_name}
+                            : {chat?.last_message?.content}
                         </Typography>
                     ) : (
                         <Typography

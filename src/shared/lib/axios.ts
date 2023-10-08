@@ -20,11 +20,19 @@ class Axios {
     }
 
     private handleResponse<T>(response: XMLHttpRequest): AxiosResponse<T> {
-        return {
-            data: JSON.parse(response.responseText) as T,
-            status: response.status,
-            statusText: response.statusText,
-        };
+        try {
+            return {
+                data: JSON.parse(response.responseText) as T,
+                status: response.status,
+                statusText: response.statusText,
+            };
+        } catch {
+            return {
+                data: response.responseText as T,
+                status: response.status,
+                statusText: response.statusText,
+            };
+        }
     }
 
     private sendRequest<T>(

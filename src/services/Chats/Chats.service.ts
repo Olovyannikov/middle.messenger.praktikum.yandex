@@ -4,6 +4,7 @@ import type {
 } from '@/services/Chats/Chats.dto.ts';
 import type { ChatModel } from '@/shared/types/models/Chat';
 import { axios } from '@/services/config.ts';
+import { ChatUserModel } from '@/shared/types/models/Chat';
 
 class Chats {
     public getChats(params: GetChatsRequest) {
@@ -43,16 +44,16 @@ class Chats {
         return await axios.post<{ token: string }>(`/chats/token/${chatId}`);
     }
 
-    public async getAllMessages(chatId: string | number) {
-        return await axios.post();
+    public async getChatUsers(chatId: string | number) {
+        return await axios.get<ChatUserModel[]>(`/chats/${chatId}/users`);
     }
 
     public async addUserToChat(body: AddUserToChatRequest) {
         return await axios.put<AddUserToChatRequest>('/chats/users', body);
     }
 
-    public async getChatToken(chatId: string) {
-        return await axios.post<{ token: string }>(`/chats/token/${chatId}`);
+    public async removeUserFromChat(body: AddUserToChatRequest) {
+        return await axios.delete<AddUserToChatRequest>('/chats/users', body);
     }
 }
 

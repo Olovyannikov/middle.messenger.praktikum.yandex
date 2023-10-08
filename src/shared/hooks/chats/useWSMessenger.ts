@@ -1,10 +1,10 @@
-import { useUserStore } from '@/store/User';
+import { setChatUsers, useUserStore } from '@/store/User';
 import { WEBSOCKET_URL } from '@/services/config.ts';
-import { useEffect, useState } from '@/jsx';
+import { createStore, useEffect, useState } from '@/jsx';
 import { ChatsService } from '@/services/Chats/Chats.service.ts';
 import { setChats } from '@/store/Chats';
 
-interface ChatMessage {
+export interface ChatMessage {
     chat_id: number;
     content: string;
     file: null;
@@ -15,8 +15,13 @@ interface ChatMessage {
     user_id: number;
 }
 
+export const {
+    use: useMessageStore,
+    set: setMessageStore,
+    update: updateMessageStore,
+} = createStore<ChatMessage[]>([]);
+
 export const useWSMessenger = (chatId: string) => {
-    const [messages, setMessages] = useState<ChatMessage[]>([]);
     const [socket, setSocket] = useState<WebSocket | null>(null);
     const [token, setToken] = useState<string | null>(null);
     const [offset, setOffset] = useState<number>(0);
@@ -27,7 +32,9 @@ export const useWSMessenger = (chatId: string) => {
         // Установка веб-сокет соединения при монтировании компонента
         const connectSocket = async () => {
             const tokenData = await ChatsService.connectToChat(chatId);
+            const getChatUsers = await ChatsService.getChatUsers(chatId);
             setToken(tokenData.data.token);
+            setChatUsers(getChatUsers.data);
             const websocketAddress = `${WEBSOCKET_URL}/chats/${user.id}/${chatId}/${tokenData.data.token}`;
             const ws = new WebSocket(websocketAddress);
 
@@ -49,7 +56,7 @@ export const useWSMessenger = (chatId: string) => {
                             type: 'get old',
                         }),
                     );
-                }, 30000);
+                }, 5000);
 
                 if (socket?.readyState === socket?.CLOSED) {
                     clearInterval(ping);
@@ -59,11 +66,32 @@ export const useWSMessenger = (chatId: string) => {
             ws.onmessage = async (event) => {
                 const data = JSON.parse(event.data);
 
-                if (data.type) {
-                    return;
-                }
                 // Обрабатываем входящее сообщение и добавляем его к текущему списку сообщений
-                setMessages(data);
+                if (data.type === 'message' || Array.isArray(data)) {
+                    if (Array.isArray(data)) {
+                        setMessageStore(data);
+                    } else {
+                        ws.send(
+                            JSON.stringify({
+                                type: 'get old',
+                                content: offset,
+                            }),
+                        );
+                    }
+                    setOffset((prev) => {
+                        if (prev) {
+                            return prev++;
+                        }
+
+                        return 0;
+                    });
+                }
+
+                if (!data.type) {
+                    await ChatsService.getChats({}).then((res) => {
+                        setChats(res.data);
+                    });
+                }
             };
 
             setSocket(ws);
@@ -89,8 +117,12 @@ export const useWSMessenger = (chatId: string) => {
                     type: 'message',
                 };
                 socket.send(JSON.stringify(message));
-                const newMessages = await ChatsService.getChats({});
-                setChats(newMessages.data);
+                socket.send(
+                    JSON.stringify({
+                        type: 'get old',
+                        content: offset,
+                    }),
+                );
             }
         } catch {
             throw new Error('Ошибка');
@@ -99,39 +131,14 @@ export const useWSMessenger = (chatId: string) => {
         }
     };
 
-    // Функция для получения старых сообщений
-    const getOldMessages = async () => {
-        if (socket?.readyState === socket?.OPEN && token) {
-            const message = {
-                content: offset.toString(),
-                type: 'get old',
-            };
-            socket?.send(JSON.stringify(message));
-            setOffset((prevOffset) => {
-                if (prevOffset) {
-                    return prevOffset + 20;
-                }
-
-                return 0;
-            });
-        }
-        socket?.addEventListener('message', (e) => {
-            const msg = JSON.parse(e.data);
-            if (msg.type === 'message') {
-                setMessages(msg);
-            }
-        });
-    };
-
     // Вызываем функцию для получения первых 20 непрочитанных сообщений
-    // useEffect(() => {
-    //     setMessages([]);
-    // }, [chatId]);
+    useEffect(() => {
+        setMessageStore([]);
+        socket?.close();
+    }, [chatId]);
 
     return {
-        messages,
         sendMessage,
-        getOldMessages,
         isLoading,
     };
 };

@@ -48,6 +48,7 @@
   position: absolute;
   right: 12px;
   top: 80px;
+  z-index: 1;
   border-radius: var(--size-xs);
   padding: var(--size-xs) var(--size-sm);
   box-shadow: 0 6px 10px 0 rgb(0 0 0 / 4%);
@@ -62,10 +63,21 @@
       background-color: var(--background);
     }
   }
+
+  button {
+    width: 100%;
+    text-align: initial;
+  }
+}
+
+.addUser {
+  display: grid;
+  gap: var(--size-xs);
 }
 
 .overlay {
   position: fixed;
+  z-index: 1;
   inset: 0;
 }
 

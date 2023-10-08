@@ -10,11 +10,12 @@ declare namespace JSX {
         lang?: string;
         draggable?: string | boolean;
         spellCheck?: string | boolean;
-        style?: string;
+        style?: string | CSSStyleDeclaration;
         tabIndex?: string;
         title?: string;
         translate?: string | boolean;
         key?: string | number;
+        name?: string;
     }
 
     interface HtmlAnchorTag extends HtmlTag {

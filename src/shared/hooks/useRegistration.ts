@@ -59,35 +59,6 @@ export const useRegistration = () => {
             },
         });
 
-    // const onSubmit = async (e: SubmitEvent) => {
-    //     e.preventDefault();
-    //     setIsLoading(true);
-    //
-    //     const form = e.target;
-    //     const formData = new FormData(form as HTMLFormElement);
-    //     const formState: Record<string, FormState> = {};
-    //     const preparedData: AuthSignupRequest = {} as AuthSignupRequest;
-    //
-    //     for (const [name, value] of formData.entries()) {
-    //         if (typeof value === 'string') {
-    //             formState[name] = { value };
-    //         }
-    //     }
-    //
-    //     Object.keys(formState).forEach((field) => {
-    //         preparedData[field as keyof AuthSignupRequest] =
-    //             formState[field].value;
-    //     });
-    //
-    //     await AuthService.signup(preparedData)
-    //         .then(() => {
-    //             window.location.replace('/chats');
-    //         })
-    //         .finally(() => {
-    //             setIsLoading(false);
-    //         });
-    // };
-
     return {
         isLoading,
         errors,

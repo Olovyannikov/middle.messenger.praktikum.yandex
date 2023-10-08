@@ -10,10 +10,6 @@ export const AppChat = () => {
     const [activeChat] = useActiveChat();
 
     if (!activeChat) {
-        return null;
-    }
-
-    if (!activeChat) {
         return (
             <div className={s.empty}>
                 <img src="/icons/comments.svg" alt="Выберите чат" />

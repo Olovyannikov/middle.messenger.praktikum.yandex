@@ -11,3 +11,13 @@ export interface ChatModel {
         content: string;
     };
 }
+
+export interface ChatUserModel {
+    id: number;
+    first_name: string;
+    second_name: string;
+    display_name: string;
+    login: string;
+    avatar: string;
+    role: string;
+}

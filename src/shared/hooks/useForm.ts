@@ -74,11 +74,16 @@ export const useForm = <
         options.onSubmit();
     };
 
+    const reset = () => {
+        setData((options.initialValues || {}) as T);
+    };
+
     return {
         data,
         errors,
         handleChange,
         handleSubmit,
         handleBlur,
+        reset,
     };
 };
