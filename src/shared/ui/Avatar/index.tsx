@@ -13,11 +13,13 @@ interface AvatarProps {
     size?: 'small' | 'medium' | 'large' | number;
     square?: boolean;
     children?: JSX.Element;
+    baseUrl?: string;
 }
 
 export const Avatar = ({
     src,
     alt,
+    baseUrl = '',
     className = '',
     children,
     color = 'var(--white)',
@@ -45,8 +47,7 @@ export const Avatar = ({
                     : null),
             }}
         >
-            {src && <img src={src} alt={alt} />}
-            {children}
+            {src ? <img src={baseUrl + src} alt={alt} /> : children}
         </div>
     );
 };

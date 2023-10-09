@@ -1,7 +1,8 @@
-import { AuthService } from '@/services/Auth/Auth.service.ts';
 import { useState } from '@/jsx/hooks/useState.ts';
 import { useEffect } from '@/jsx/hooks/useEffect.ts';
+import { AuthService } from '@/services/Auth/Auth.service.ts';
 import { useUserStore } from '@/store/User';
+import { isRMError } from '@/shared/types/type-guards/isRMError.ts';
 
 export const useAuth = () => {
     const [isAuth, setIsAuth] = useState(false);
@@ -16,6 +17,11 @@ export const useAuth = () => {
                 } else {
                     setIsAuth(true);
                     setUser.set(res.data);
+                }
+            })
+            .catch((e: unknown) => {
+                if (isRMError(e)) {
+                    throw new Error(e?.reason ?? 'Произошла ошибка useAuth.ts');
                 }
             })
             .finally(() => {

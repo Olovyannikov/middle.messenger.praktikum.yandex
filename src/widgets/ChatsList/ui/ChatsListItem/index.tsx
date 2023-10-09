@@ -55,7 +55,12 @@ export const ChatsListItem = ({ chat }: ChatsListItemProps) => {
                     setActiveChat(chat?.id);
                 }}
             >
-                <Avatar src={chat?.avatar}>{avatarTitle(chat?.title)}</Avatar>
+                <Avatar
+                    baseUrl="https://ya-praktikum.tech/api/v2/resources/"
+                    src={chat?.avatar}
+                >
+                    {chat?.avatar ? null : avatarTitle(chat?.title)}
+                </Avatar>
                 <article>
                     <Typography variant="subtitle2">{chat?.title}</Typography>
                     {chat?.last_message ? (

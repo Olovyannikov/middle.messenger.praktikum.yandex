@@ -1,10 +1,11 @@
 import type {
+    AddChatAvatarRequest,
     AddUserToChatRequest,
     GetChatsRequest,
 } from '@/services/Chats/Chats.dto.ts';
 import type { ChatModel } from '@/shared/types/models/Chat';
 import { axios } from '@/services/config.ts';
-import { ChatUserModel } from '@/shared/types/models/Chat';
+import type { ChatUserModel } from '@/shared/types/models/Chat';
 
 class Chats {
     public getChats(params: GetChatsRequest) {
@@ -33,11 +34,11 @@ class Chats {
     }
 
     public async createChat(title: string) {
-        return await axios.post<string>('/chats', { title });
+        return await axios.post<string>('/chats', {}, { title });
     }
 
     public async deleteChat(chatId: string | number) {
-        return await axios.delete<string>('/chats', { chatId });
+        return await axios.delete<string>('/chats', {}, { chatId });
     }
 
     public async connectToChat(chatId: string | number) {
@@ -49,11 +50,19 @@ class Chats {
     }
 
     public async addUserToChat(body: AddUserToChatRequest) {
-        return await axios.put<AddUserToChatRequest>('/chats/users', body);
+        return await axios.put<AddUserToChatRequest>('/chats/users', {}, body);
+    }
+
+    public async addChatAvatar(body: AddChatAvatarRequest) {
+        return await axios.put<AddChatAvatarRequest>('/chats/avatar', {}, body);
     }
 
     public async removeUserFromChat(body: AddUserToChatRequest) {
-        return await axios.delete<AddUserToChatRequest>('/chats/users', body);
+        return await axios.delete<AddUserToChatRequest>(
+            '/chats/users',
+            {},
+            body,
+        );
     }
 }
 

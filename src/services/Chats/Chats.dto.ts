@@ -12,3 +12,8 @@ export interface AddUserToChatRequest {
     users: number[];
     chatId: number;
 }
+
+export interface AddChatAvatarRequest {
+    chatId: string;
+    avatar: string | FormData;
+}

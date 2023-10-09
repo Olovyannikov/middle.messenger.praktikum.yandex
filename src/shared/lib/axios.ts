@@ -1,3 +1,9 @@
+type HTTPMethod = <T>(
+    url: string,
+    headers?: Record<string, string>,
+    data?: FormData | object | null,
+) => Promise<AxiosResponse<T>>;
+
 interface AxiosResponse<T> {
     data: T;
     status: number;
@@ -84,36 +90,17 @@ class Axios {
         });
     }
 
-    get<T>(
-        url: string,
-        headers: Record<string, string> = {},
-    ): Promise<AxiosResponse<T>> {
-        return this.sendRequest('GET', url, null, headers);
-    }
+    get: HTTPMethod = (url, headers = {}) =>
+        this.sendRequest('GET', url, null, headers);
 
-    post<T>(
-        url: string,
-        data?: FormData | object,
-        headers: Record<string, string> = {},
-    ): Promise<AxiosResponse<T>> {
-        return this.sendRequest('POST', url, data, headers);
-    }
+    post: HTTPMethod = (url, headers, data) =>
+        this.sendRequest('POST', url, data, headers);
 
-    put<T>(
-        url: string,
-        data?: FormData | object,
-        headers: Record<string, string> = {},
-    ): Promise<AxiosResponse<T>> {
-        return this.sendRequest('PUT', url, data, headers);
-    }
+    put: HTTPMethod = (url, headers, data) =>
+        this.sendRequest('PUT', url, data, headers);
 
-    delete<T>(
-        url: string,
-        data?: FormData | object,
-        headers: Record<string, string> = {},
-    ): Promise<AxiosResponse<T>> {
-        return this.sendRequest('DELETE', url, data, headers);
-    }
+    delete: HTTPMethod = (url, headers, data) =>
+        this.sendRequest('DELETE', url, data, headers);
 }
 
 export { Axios };

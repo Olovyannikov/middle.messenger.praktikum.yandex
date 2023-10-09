@@ -1,6 +1,6 @@
 import { useState } from '@/jsx';
 
-import { setActiveChat, setChats } from '@/store/Chats';
+import { setChats } from '@/store/Chats';
 import { ChatsService } from '@/services/Chats/Chats.service.ts';
 
 import { useToast } from '@/shared/ui/Toast/useToast.ts';
@@ -10,6 +10,7 @@ import type { ChatModel } from '@/shared/types/models/Chat';
 
 interface UseDeleteChatProps {
     chat?: ChatModel;
+    cb?: () => void;
 }
 
 export const useDeleteChat = ({ chat }: UseDeleteChatProps) => {
@@ -27,8 +28,6 @@ export const useDeleteChat = ({ chat }: UseDeleteChatProps) => {
                         title: 'Успешно!',
                         description: `Чат ${chat?.title} успешно удален`,
                     });
-
-                    setActiveChat(null);
                     ChatsService.getChats({}).then((res) => setChats(res.data));
                 }
             } catch (e: unknown) {

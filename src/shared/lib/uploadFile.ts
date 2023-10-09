@@ -5,6 +5,7 @@ export const uploadFile = async (
     file: File,
     to = '/user/profile/avatar',
     filename = 'avatar',
+    data?: Record<string, string>,
 ) => {
     const request = new Axios({
         withCredentials: true,
@@ -13,5 +14,11 @@ export const uploadFile = async (
 
     const formData = new FormData();
     formData.append(filename, file);
-    await request.put(to, formData);
+    if (data) {
+        Object.entries(data).forEach((el) => {
+            formData.append(el[0], el[1]);
+        });
+    }
+
+    await request.put(to, {}, formData);
 };

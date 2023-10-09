@@ -68,6 +68,7 @@ export default function SettingsPage() {
                             value={data.first_name}
                             onInput={handleChange('first_name')}
                             onBlur={handleBlur('first_name')}
+                            error={errors['first_name']}
                         />
                         <Input
                             name="second_name"
@@ -132,7 +133,7 @@ export default function SettingsPage() {
                     </div>
                 </form>
             </main>
-            <Toast toasts={toasts} />
+            {toasts.length > 0 && <Toast toasts={toasts} />}
         </section>
     );
 }

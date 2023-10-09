@@ -37,7 +37,7 @@ export const Modal = ({
     }, []);
 
     return (
-        <div>
+        <div style={`display: ${open ? 'block' : 'none'}`}>
             <div role="presentation" className={s.open} onClick={onClose} />
             <div className={classNames(s.modal, {}, [className])}>
                 <button

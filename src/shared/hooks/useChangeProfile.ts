@@ -30,6 +30,7 @@ export const useChangeProfile = () => {
                 login: ValidatorRequired,
                 email: ValidatorEmail,
                 phone: ValidatorRequired,
+                display_name: ValidatorRequired,
             },
             onSubmit: async () => {
                 setIsLoading(true);

@@ -11,7 +11,7 @@ interface ToastProps {
 export const Toast = ({ toasts, position = 'bottom-right' }: ToastProps) => {
     return (
         <div className={classNames(s.container, {}, [s[position]])}>
-            {toasts.map((toast, i) => (
+            {toasts?.map((toast, i) => (
                 <div
                     key={i}
                     className={classNames(s.notification, {}, [

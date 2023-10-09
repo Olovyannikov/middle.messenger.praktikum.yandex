@@ -1,0 +1,15 @@
+.form {
+  display: flex;
+  width: 100%;
+  min-width: 300px;
+  gap: var(--size-xxs);
+
+  button {
+    width: 100%;
+  }
+
+  &.full {
+    flex-direction: column;
+    gap: var(--size-lg);
+  }
+}
