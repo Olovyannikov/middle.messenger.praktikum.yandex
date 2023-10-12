@@ -17,7 +17,6 @@ declare namespace JSX {
 
     type GlobalAttributes = CommonEvents &
         Partial<{
-            onClick: () => void;
             accesskey: string;
             autocaptialize:
                 | 'off'
@@ -70,9 +69,3 @@ declare namespace JSX {
         (properties: T, children?: Node[]): Element;
     }
 }
-
-type AllElementTagNameMap = HTMLElementTagNameMap & SVGElementTagNameMap;
-
-type RecursivePartial<T> = {
-    [P in keyof T]?: RecursivePartial<T[P]>;
-};

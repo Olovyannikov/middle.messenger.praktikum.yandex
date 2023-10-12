@@ -1,5 +1,5 @@
-import {resolve} from 'path';
-import {defineConfig} from 'vite';
+import { resolve } from 'path';
+import { defineConfig } from 'vite';
 
 const generateScopedName = '[name]__[local]___[hash:base64:5]';
 
@@ -10,7 +10,8 @@ export default defineConfig({
         },
         preprocessorOptions: {
             scss: {
-                additionalData: '@import "./src/app/assets/styles/general/_mixins.scss";',
+                additionalData:
+                    '@import "./src/app/assets/styles/general/_mixins.scss";',
             },
         },
         devSourcemap: true,
@@ -18,11 +19,9 @@ export default defineConfig({
     resolve: {
         alias: [
             {
-                find: "@/jsx", replacement: resolve(__dirname, "./src/jsx-runtime/index.ts"),
+                find: '@',
+                replacement: resolve(__dirname, './src'),
             },
-            {
-                find: "@", replacement: resolve(__dirname, "./src"),
-            },
-        ]
-    }
+        ],
+    },
 });

@@ -1,6 +1,7 @@
 import { VDom } from '@/jsx';
 import { classNames } from '@/shared/lib/clsx.ts';
 import s from './styles.module.scss';
+import Tag = JSX.Tag;
 
 type TypographyVariant =
     | 'h1'
@@ -16,14 +17,14 @@ type TypographyVariant =
     | 'caption'
     | 'overline';
 
-interface TypographyProps<T extends JSX.HTMLTag> {
+interface TypographyProps<T extends Tag> {
     as?: T;
     className?: string;
     children?: JSX.Element;
     variant?: TypographyVariant;
 }
 
-export const Typography = <T extends JSX.HTMLTag = 'p'>({
+export const Typography = <T extends Tag = 'p'>({
     as,
     children,
     className = '',

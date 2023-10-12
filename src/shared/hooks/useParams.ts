@@ -1,18 +1,31 @@
-export const useParams = () => {
-    const location = window.location;
-    const params = new URLSearchParams(location.search);
-    const keys = params.keys();
-    const values = params.values();
-    const entries = [];
+import { useLocation } from '@/shared/hooks/useLocation.ts';
+import { useEffect, useState } from '@/jsx';
 
-    for (const [key, value] of params.entries()) {
-        entries.push({ key, value });
-    }
+export const useParams = () => {
+    const { replace, search } = useLocation();
+
+    const getParams = () => {
+        const urlSearchParams = new URLSearchParams(search);
+        return Object.fromEntries(urlSearchParams.entries());
+    };
+
+    const [currentParam, setCurrentParam] = useState('');
+
+    const setParams = (params: Record<string, string>) => {
+        const stringfiedUrlSearchParams = new URLSearchParams(
+            params,
+        ).toString();
+        replace(`?${stringfiedUrlSearchParams}`);
+        setCurrentParam(stringfiedUrlSearchParams);
+    };
+
+    useEffect(() => {
+        getParams();
+    }, [search]);
 
     return {
-        params,
-        keys,
-        values,
-        entries,
+        getParams,
+        setParams,
+        currentParam,
     };
 };

@@ -2,6 +2,7 @@
   position: fixed;
   left: 50%;
   top: 50%;
+  z-index: 1;
   border-radius: var(--size-xl);
   padding: var(--size-3xl);
   background-color: var(--off-white);
@@ -42,4 +43,15 @@
   width: 100%;
   font: var(--subtitle-m);
   text-align: center;
+}
+
+.open::after {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  background-color: rgb(0 0 0 / 50%);
 }

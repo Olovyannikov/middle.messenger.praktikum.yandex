@@ -1,0 +1,102 @@
+.avatar {
+  input {
+    appearance: none;
+    display: none;
+  }
+}
+
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  width: 100%;
+  background-color: var(--off-white);
+}
+
+.menu {
+  position: relative;
+  border-radius: var(--size-xs);
+  padding: var(--size-xs) var(--size-xl);
+  height: 40px;
+
+  &::after,
+  &::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 48%;
+    border-radius: 50%;
+    width: var(--size-xxs);
+    height: var(--size-xxs);
+    background-color: var(--monochrome-ash);
+    transform: translate(-50%);
+  }
+
+  &::before {
+    top: 10px;
+  }
+
+  &::after {
+    box-shadow: 0 8px 0 0 var(--monochrome-ash);
+  }
+
+  &:hover {
+    background-color: var(--background);
+  }
+
+  &:active {
+    background-color: var(--input);
+  }
+}
+
+.actions {
+  position: absolute;
+  right: 12px;
+  top: 80px;
+  z-index: 1;
+  border-radius: var(--size-xs);
+  padding: var(--size-xs) var(--size-sm);
+  box-shadow: 0 6px 10px 0 rgb(0 0 0 / 4%);
+  background-color: var(--off-white);
+
+  li {
+    margin-left: calc(-1 * var(--size-sm));
+    padding: var(--size-sm);
+    width: calc(100% + var(--size-sm) * 2);
+
+    &:hover {
+      background-color: var(--background);
+    }
+  }
+
+  button {
+    width: 100%;
+    text-align: initial;
+  }
+}
+
+.addUser {
+  display: grid;
+  gap: var(--size-xs);
+}
+
+.overlay {
+  position: fixed;
+  z-index: 1;
+  inset: 0;
+}
+
+.modal {
+  min-width: 300px;
+}
+
+.controls {
+  display: flex;
+  gap: var(--size-xs);
+
+  button {
+    width: 100%;
+  }
+}

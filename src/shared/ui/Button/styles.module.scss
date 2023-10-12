@@ -8,6 +8,12 @@
   text-decoration: none;
   color: var(--monochrome-ash, #262626);
   background: var(--main-green-300, #b9f348);
+  transition: 0.3s ease-in-out;
+  gap: var(--size-md);
+
+  &:focus-visible {
+    outline: 1px solid var(--blue-50);
+  }
 }
 
 .small {
@@ -24,4 +30,8 @@
 
 .rounded {
   border-radius: 50%;
+}
+
+.spinner {
+  order: -1;
 }

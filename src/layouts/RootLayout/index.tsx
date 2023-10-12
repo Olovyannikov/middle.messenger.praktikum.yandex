@@ -5,9 +5,5 @@ interface RootLayoutProps {
 }
 
 export const RootLayout = ({ children }: RootLayoutProps) => {
-    return (
-        <div className="app">
-            <main>{children}</main>
-        </div>
-    );
+    return <main>{children}</main>;
 };

@@ -34,6 +34,7 @@
     "import/no-duplicates": "off",
     "space-before-function-paren": "off",
     "no-underscore-dangle": "warn",
+    "no-constant-condition": "warn",
     "object-curly-spacing": [
       "warn",
       "always"
@@ -42,7 +43,7 @@
       "error",
       "always"
     ],
-    "@typescript-eslint/no-use-before-define": "error",
+    "@typescript-eslint/no-use-before-define": "off",
     "indent": [
       "error",
       4
@@ -55,6 +56,7 @@
         "allowTemplateLiterals": true
       }
     ],
+    "react/no-unknown-property": "off",
     "react/jsx-first-prop-new-line": [
       2,
       "multiline"

@@ -1,0 +1,23 @@
+.chat {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chatList {
+  display: flex;
+  flex-direction: column-reverse;
+  overflow: auto;
+  margin-top: auto;
+  max-height: calc(100vh - 80px - 60px);
+  padding-block: 20px;
+  padding-inline: 70px;
+
+  &:empty + form {
+    margin-top: auto;
+  }
+
+  &:not(:empty) + form {
+    margin-top: initial;
+  }
+}
