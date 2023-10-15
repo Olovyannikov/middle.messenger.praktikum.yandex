@@ -1,0 +1,12 @@
+{
+  "extension": [
+    "ts",
+    "tsx"
+  ],
+  "spec": "**/*.spec.[jt]s?(x)",
+  "loader": "ts-node/esm",
+  "node-option": [
+    "experimental-specifier-resolution=node",
+    "loader=ts-node/esm"
+  ]
+}

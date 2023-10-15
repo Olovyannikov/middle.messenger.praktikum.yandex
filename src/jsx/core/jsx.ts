@@ -46,7 +46,7 @@ const createElement = (
     };
 };
 
-const render = (element: JSX.Element, container: Node) => {
+const render = (element: Element, container: Node) => {
     State.wipRoot = {
         node: container,
         props: {
