@@ -7,6 +7,7 @@
     "node": ">=12"
   },
   "scripts": {
+    "clean": "rimraf dist",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
@@ -14,7 +15,8 @@
     "lint:ts:fix": "eslint \"**/*.{ts,tsx}\" --fix",
     "lint:css": "npx stylelint \"**/*.{css,scss}\"",
     "lint:css:fix": "npx stylelint \"**/*.{css,scss}\" --fix",
-    "test": "mocha --require ts-node/register src/**/*.spec.{js,ts,jsx,tsx}"
+    "test": "mocha --require ts-node/register src/**/*.spec.{js,ts,jsx,tsx}",
+    "postinstall": "husky install"
   },
   "devDependencies": {
     "@babel/cli": "7.23.0",
@@ -63,5 +65,9 @@
     "hooks": {
       "pre-commit": "npm-run-all test lint:*"
     }
+  },
+  "lint-staged": {
+    "*.ts": "eslint --fix",
+    "*.scss": "stylelint --syntax=scss --fix"
   }
 }
