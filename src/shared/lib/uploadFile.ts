@@ -1,4 +1,4 @@
-import { Axios } from '@/shared/lib/axios.ts';
+import { Axios } from '@/shared/lib/axios/axios.ts';
 import { BASE_URL } from '@/services/config.ts';
 
 export const uploadFile = async (

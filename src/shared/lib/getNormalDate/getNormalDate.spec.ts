@@ -4,7 +4,7 @@ import { getNormalDate } from './getNormalDate.ts';
 import { assert } from 'chai';
 
 describe('getNormalDate', () => {
-    it('должна возвращать правильное время в формате "HH:mm"', () => {
+    it('should return the correct time in the format "HH:mm"', () => {
         const mockDate = new Date('2023-10-15T12:30:45');
         const clock = sinon.useFakeTimers(mockDate);
 
@@ -16,7 +16,7 @@ describe('getNormalDate', () => {
         clock.restore();
     });
 
-    it('должна добавлять ведущий ноль к часам и минутам, если они менее 10', () => {
+    it('must add a leading zero to hours and minutes if they are less than 10', () => {
         const mockDate = new Date('2023-10-15T09:05:00');
         const clock = sinon.useFakeTimers(mockDate);
 
