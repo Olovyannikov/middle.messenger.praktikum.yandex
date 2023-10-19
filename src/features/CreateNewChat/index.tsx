@@ -1,7 +1,7 @@
 import { VDom } from '@/jsx';
 import { Button, Input, Modal, Toast } from '@/shared/ui';
-import s from './styles.module.scss';
 import { useCreateNewChat } from '@/features/CreateNewChat/useCreateNewChat.ts';
+import s from './styles.module.scss';
 
 interface CreateNewChatProps {
     onClose(): void;

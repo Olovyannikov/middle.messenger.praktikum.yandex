@@ -7,5 +7,5 @@ vite.config.ts
 src/pages
 src/app
 server.js
-mochaSetup.js
+mochaSetup.mjs
 babel.config.js

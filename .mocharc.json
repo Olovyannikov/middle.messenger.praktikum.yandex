@@ -11,6 +11,6 @@
     "loader=ts-node/esm"
   ],
   "require": [
-    "./mochaSetup.js"
+    "./mochaSetup.mjs"
   ]
 }
