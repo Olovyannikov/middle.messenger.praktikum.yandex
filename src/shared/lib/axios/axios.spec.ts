@@ -1,63 +1,115 @@
-import { expect, use } from 'chai';
-import { describe, it, beforeEach, afterEach } from 'mocha';
-import { SinonStub, createSandbox } from 'sinon';
-import sinonChai from 'sinon-chai';
-import { Axios } from '../axios/axios.ts';
+import { Axios, AxiosResponse } from './axios';
+
+import { JSDOM } from 'jsdom';
+
+const dom = new JSDOM(
+    '<!DOCTYPE html><html lang="ru"><body><div id="root"></div></body></html>',
+    { url: 'http://localhost' },
+);
+Object.defineProperty(globalThis, 'XMLHttpRequest', {
+    value: dom.window.XMLHttpRequest,
+});
 
 describe('Axios', () => {
-    use(sinonChai);
-    const sandbox = createSandbox();
-    let http: Axios;
-    let getStub: SinonStub;
-    let postStub: SinonStub;
-    let putStub: SinonStub;
-    let deleteStub: SinonStub;
+    let axiosInstance: Axios;
+    let mockAxios: jest.Mocked<Axios>;
 
     beforeEach(() => {
-        http = new Axios();
-        getStub = sandbox
-            .stub(http, 'get')
-            .resolves({ data: 'mocked GET response' } as never);
-        postStub = sandbox
-            .stub(http, 'post')
-            .resolves({ data: 'mocked POST response' } as never);
-        putStub = sandbox
-            .stub(http, 'put')
-            .resolves({ data: 'mocked PUT response' } as never);
-        deleteStub = sandbox
-            .stub(http, 'delete')
-            .resolves({ data: 'mocked DELETE response' } as never);
+        axiosInstance = new Axios();
+        mockAxios = axiosInstance as jest.Mocked<Axios>;
     });
 
-    afterEach(() => {
-        sandbox.restore();
-    });
+    it('should send a GET request', async () => {
+        // Arrange
+        const url = 'https://api.example.com/users';
+        const responseData = { id: 1, name: 'John Doe' };
 
-    it('should mock the GET request', async () => {
-        const response = await http.get('/api/data');
-        expect(response?.data).to.equal('mocked GET response');
-        expect(getStub).to.have.been.calledOnceWithExactly('/api/data');
-    });
-
-    it('should mock the POST request', async () => {
-        const response = await http.post('/api/data', { key: 'value' });
-        expect(response?.data).to.equal('mocked POST response');
-        expect(postStub).to.have.been.calledOnceWithExactly('/api/data', {
-            key: 'value',
+        // Мокируем метод get
+        mockAxios.get = jest.fn().mockResolvedValueOnce({
+            data: responseData,
+            status: 200,
+            statusText: 'OK',
         });
+
+        // Act
+        const response: AxiosResponse<any> = await axiosInstance.get(url);
+
+        // Assert
+        expect(response.status).toBe(200);
+        expect(response.statusText).toBe('OK');
+        expect(response.data).toEqual(responseData);
     });
 
-    it('should mock the PUT request', async () => {
-        const response = await http.put('/api/data/1', { key: 'value' });
-        expect(response?.data).to.equal('mocked PUT response');
-        expect(putStub).to.have.been.calledOnceWithExactly('/api/data/1', {
-            key: 'value',
+    // Тесты для остальных методов (POST, PUT, DELETE) аналогичны
+
+    it('should send a DELETE request', async () => {
+        // Arrange
+        const url = 'https://api.example.com/users/1';
+        const responseData = { message: 'User deleted' };
+
+        // Мокируем метод delete
+        mockAxios.delete = jest.fn().mockResolvedValueOnce({
+            data: responseData,
+            status: 200,
+            statusText: 'OK',
         });
+
+        // Act
+        const response: AxiosResponse<any> = await axiosInstance.delete(url);
+
+        // Assert
+        expect(response.status).toBe(200);
+        expect(response.statusText).toBe('OK');
+        expect(response.data).toEqual(responseData);
     });
 
-    it('should mock the DELETE request', async () => {
-        const response = await http.delete('/api/data/1');
-        expect(response?.data).to.equal('mocked DELETE response');
-        expect(deleteStub).to.have.been.calledOnceWithExactly('/api/data/1');
+    it('should send a PUT request', async () => {
+        // Arrange
+        const url = 'https://api.example.com/users/1';
+        const requestData = { name: 'John Doe' };
+        const responseData = { message: 'User updated' };
+
+        // Мокируем метод put
+        mockAxios.put = jest.fn().mockResolvedValueOnce({
+            data: responseData,
+            status: 200,
+            statusText: 'OK',
+        });
+
+        // Act
+        const response: AxiosResponse<any> = await axiosInstance.put(
+            url,
+            requestData,
+        );
+
+        // Assert
+        expect(response.status).toBe(200);
+        expect(response.statusText).toBe('OK');
+        expect(response.data).toEqual(responseData);
+    });
+
+    it('should send a POST request', async () => {
+        // Arrange
+        const url = 'https://api.example.com/users';
+        const requestData = { name: 'John Doe' };
+        const responseData = { id: 1, name: 'John Doe' };
+
+        // Мокируем метод post
+        mockAxios.post = jest.fn().mockResolvedValueOnce({
+            data: responseData,
+            status: 201,
+            statusText: 'Created',
+        });
+
+        // Act
+        const response: AxiosResponse<unknown> = await axiosInstance.post(
+            url,
+            requestData,
+        );
+
+        // Assert
+        expect(response.status).toBe(201);
+        expect(response.statusText).toBe('Created');
+        expect(response.data).toEqual(responseData);
     });
 });

@@ -1,4 +1,4 @@
-import { getLastHook } from '@/jsx/hooks/common';
+import { getLastHook } from '../hooks/common';
 import { State } from '../core/models';
 
 export type SetStateAction<T> = ((prevState?: T) => T) | T | undefined;

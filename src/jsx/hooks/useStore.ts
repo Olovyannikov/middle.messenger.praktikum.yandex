@@ -1,6 +1,6 @@
-import { useEffect, useState } from '@/jsx';
-import { State } from '@/jsx/core/models.ts';
-import type { StateSetter } from '@/jsx/hooks/useState';
+import { useEffect, useState } from '..';
+import { State } from '../core/models.ts';
+import type { StateSetter } from '../hooks/useState';
 
 type UpdateStoreFunction<T> = (update: Partial<T>) => void;
 type UseStoreFunction<T> = () => [T, StoreModifier<T>];

@@ -10,17 +10,17 @@ type ButtonType = 'submit' | 'button';
 type ButtonVariant = 'primary' | 'secondary' | 'text' | 'info';
 
 interface ButtonProps {
-    href?: string;
-    onClick?: () => void;
     children?: JSX.Element;
+    className?: string;
+    disabled?: boolean;
+    hash?: boolean;
+    href?: string;
+    loading?: boolean;
+    onClick?: () => void;
+    rounded?: boolean;
     size?: ButtonSize;
     type?: ButtonType;
     variant?: ButtonVariant;
-    disabled?: boolean;
-    className?: string;
-    hash?: boolean;
-    rounded?: boolean;
-    loading?: boolean;
 }
 
 export const Button = ({

@@ -15,7 +15,7 @@ const unwind = <T>(children: T | T[], out: T[]) => {
     return out;
 };
 
-const createTextElement = (text: string): Fiber => {
+export const createTextElement = (text: string): Fiber => {
     return {
         type: 'TEXT_ELEMENT',
         props: {

@@ -39,6 +39,14 @@
     }
   },
   "include": [
-    "src"
+    "src",
+    "./src/app/types/css.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "files": [
+    "./src/app/types/css.d.ts",
+    "./src/app/types/jsx.d.ts"
   ]
 }
