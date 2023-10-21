@@ -10,18 +10,10 @@ import './assets/styles/styles.scss';
 export const App = () => {
     return (
         <>
-            <Route path="/">
-                <IndexPage />
-            </Route>
-            <Route path="/sign-up">
-                <Registration />
-            </Route>
-            <Route path="/messenger">
-                <MessengerPage />
-            </Route>
-            <Route path="/settings">
-                <SettingsPage />
-            </Route>
+            <Route path="/" component={IndexPage} />
+            <Route path="/sign-up" component={Registration} />
+            <Route path="/messenger" component={MessengerPage} />
+            <Route path="/settings" component={SettingsPage} />
         </>
     );
 };

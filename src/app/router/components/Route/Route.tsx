@@ -5,12 +5,12 @@ import ErrorPage from '@/pages/Error';
 
 interface RouterProps {
     path: string;
-    children?: Component;
+    component: Component;
 }
 
 const routes = ['/', '/messenger', '/settings', '/sign-up'];
 
-export const Route = ({ path, children: Child }: RouterProps) => {
+export const Route = ({ path, component: Child }: RouterProps) => {
     const [currentPath, setCurrentPath] = useState(window.location.pathname);
     useEffect(() => {
         const onLocationChange = () => {
