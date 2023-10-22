@@ -1,6 +1,6 @@
 ## Приложение "Веб-мессенджер"
 
-- [Деплой](https://deploy-preview-3--stirring-dango-368814.netlify.app/)
+- [Деплой]([https://deploy-preview-3--stirring-dango-368814.netlify.app/](https://deploy-preview-4--stirring-dango-368814.netlify.app/))
 - [Макет в фигме](https://www.figma.com/file/BjvmAkvEcTt5tF85e8eE2g/CHAT_MY?type=design&node-id=0-1&mode=design&t=GpEcyIxQIXzyelPT-0)
 - В качестве фреймворка реализован компонентый virtual dom подход по аналогии с react;
 - JSX Pragma в качестве шаблонизатора;
@@ -39,6 +39,7 @@
 - [TypeScript](https://www.typescriptlang.org/)
 - [SCSS](https://sass-lang.com/)
 - [CSS Modules](https://github.com/css-modules/css-modules)
+- [Jest](https://jestjs.io/ru/)
 
 ## 🐣 Порядок импортов
 
