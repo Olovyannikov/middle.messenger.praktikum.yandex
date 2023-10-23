@@ -1,4 +1,4 @@
-import { useEffect, useState, useUpdate, createStore } from '@/jsx/hooks';
+import { useEffect, useState, useUpdate, createStore } from './hooks';
 import { createElement, createFragmentElement, render } from './core/jsx.ts';
 
 export const VDom = {

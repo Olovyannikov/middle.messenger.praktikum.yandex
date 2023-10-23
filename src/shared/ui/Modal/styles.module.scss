@@ -10,18 +10,23 @@
 }
 
 .close {
-  @include btn-reset;
-
   position: absolute;
   right: var(--size-md);
   top: var(--size-md);
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0;
+  outline: none;
+  border: none;
   border-radius: 50%;
+  padding: 0;
   width: var(--size-xl);
   height: var(--size-xl);
+  color: inherit;
+  background: none;
   transition: 0.3s ease-in-out;
+  cursor: pointer;
 
   &:is(:hover, :focus-visible) {
     background-color: var(--input);
@@ -31,6 +36,10 @@
     width: var(--size-xl);
     height: var(--size-xl);
     pointer-events: none;
+  }
+
+  &:focus {
+    outline: none;
   }
 
   &:focus-visible {

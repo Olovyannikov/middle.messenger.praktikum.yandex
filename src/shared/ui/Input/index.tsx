@@ -2,9 +2,8 @@ import { VDom } from '@/jsx';
 import { classNames } from '@/shared/lib/clsx.ts';
 
 import s from './styles.module.scss';
-import HtmlInputTag = JSX.HtmlInputTag;
 
-export interface InputProps extends HtmlInputTag {
+export interface InputProps extends JSX.HtmlInputTag {
     label?: string;
     full?: boolean;
     message?: string;

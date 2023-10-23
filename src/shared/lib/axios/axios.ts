@@ -4,7 +4,7 @@ type HTTPMethod = <T>(
     data?: FormData | object | null,
 ) => Promise<AxiosResponse<T>>;
 
-interface AxiosResponse<T> {
+export interface AxiosResponse<T> {
     data: T;
     status: number;
     statusText: string;

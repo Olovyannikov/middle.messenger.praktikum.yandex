@@ -1,7 +1,7 @@
 import { VDom } from '@/jsx';
 
 import IndexPage from '@/pages';
-import { Route } from '@/app/router/components/Route.tsx';
+import { Route } from '@/app/router/components/Route/Route.tsx';
 import { Registration } from '@/features/Registration/ui';
 import MessengerPage from '@/pages/Messenger';
 import SettingsPage from '@/pages/Settings';

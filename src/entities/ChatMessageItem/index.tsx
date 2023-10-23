@@ -3,7 +3,7 @@ import { Avatar } from '@/shared/ui';
 import { getUserAvatar } from '@/shared/lib/getUserAvatar.ts';
 import { avatarTitle } from '@/shared/lib/getAvatarTitle.ts';
 import { VDom } from '@/jsx';
-import { getNormalDate } from '@/shared/lib/getNormalDate.ts';
+import { getNormalDate } from '@/shared/lib/getNormalDate/getNormalDate.ts';
 import {
     type ChatMessage,
     useMessageStore,

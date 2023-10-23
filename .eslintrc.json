@@ -2,7 +2,16 @@
   "root": true,
   "ignorePatterns": "./.eslintignore",
   "parser": "@typescript-eslint/parser",
+  "globals": {
+    "module": "readonly"
+  },
   "parserOptions": {
+    "requireConfigFile": false,
+    "babelOptions": {
+      "presets": [
+        "@babel/preset-env"
+      ]
+    },
     "ecmaFeatures": {
       "jsx": true
     },
@@ -13,7 +22,8 @@
     "react",
     "jsx-a11y",
     "import",
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "@babel"
   ],
   "extends": [
     "eslint:recommended",
@@ -80,6 +90,7 @@
     ]
   },
   "env": {
+    "node": true,
     "browser": true,
     "es2021": true
   }

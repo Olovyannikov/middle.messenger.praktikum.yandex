@@ -6,6 +6,7 @@
     "target": "esnext",
     "useDefineForClassFields": true,
     "module": "ESNext",
+    "moduleResolution": "Node",
     "lib": [
       "esnext",
       "dom",
@@ -13,7 +14,9 @@
     ],
     "skipLibCheck": true,
     /* Bundler mode */
-    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "checkJs": false,
+    "allowJs": true,
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": false,
@@ -36,6 +39,14 @@
     }
   },
   "include": [
-    "src"
+    "src",
+    "./src/app/types/css.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "files": [
+    "./src/app/types/css.d.ts",
+    "./src/app/types/jsx.d.ts"
   ]
 }

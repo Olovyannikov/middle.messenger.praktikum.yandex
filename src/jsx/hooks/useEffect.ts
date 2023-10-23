@@ -1,4 +1,4 @@
-import { getLastHook, isEqual } from '@/jsx/hooks/common';
+import { getLastHook, isEqual } from '../hooks/common';
 import { State } from '../core/models';
 
 export const useEffect = (

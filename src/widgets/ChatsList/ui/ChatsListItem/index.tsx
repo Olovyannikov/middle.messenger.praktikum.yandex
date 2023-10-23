@@ -10,7 +10,7 @@ import { useParams, useLocation } from '@/shared/hooks';
 import type { ChatModel } from '@/shared/types/models/Chat';
 
 import s from './ChatsListItem.module.scss';
-import { getNormalDate } from '@/shared/lib/getNormalDate.ts';
+import { getNormalDate } from '@/shared/lib/getNormalDate/getNormalDate.ts';
 import { avatarTitle } from '@/shared/lib/getAvatarTitle.ts';
 
 interface ChatsListItemProps {
